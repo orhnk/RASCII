@@ -1,5 +1,0 @@
-echo "You have to be root btw!"
-sudo cp target/release/rascii /usr/bin
-rascii --help
-echo "enjoy :D"
-
