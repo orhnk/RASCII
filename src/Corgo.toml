@@ -1,0 +1,16 @@
+<<<<<<< HEAD
+[workspace]
+
+members = [
+	"rascii",
+]
+=======
+[package]
+name = "rascii"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+image = "0.24.5"
+rgb2ansi256 = "0.1.1"
+>>>>>>> 06531897 (main repository)
