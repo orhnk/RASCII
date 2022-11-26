@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["BmpDecoder","A bmp decoder"],["BmpEncoder","The representation of a BMP encoder."]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"trait":[["HalfBitsVecExt","Extensions to [`Vec<u16>`] to support reinterpret operations."],["HalfFloatVecExt","Extensions to [`Vec<f16>`] and [`Vec<bf16>`] to support reinterpret operations."]]};

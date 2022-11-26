@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":[["chacha_block","Do one ChaCha round on the input data."],["chacha_increment_counter","Increment the 64-bit counter of the internal ChaCha20 state by 1. Returns `false` if it overflows, `true` otherwise."],["chacha_init","Initialize the ChaCha internal state, with a 256-bit key and 64-bit nonce."]]};

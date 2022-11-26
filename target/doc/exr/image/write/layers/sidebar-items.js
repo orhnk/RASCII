@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["AllLayersWriter","A temporary writer for an arbitrary list of layers"],["LayerWriter","A temporary writer for a single layer"]],"trait":[["LayersWriter","A temporary writer for a list of channels"],["WritableLayers","Enables an image containing this list of layers to be written to a file."]]};

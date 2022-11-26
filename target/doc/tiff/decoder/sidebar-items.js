@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["ChunkType","Chunk type of the internal representation"],["DecodingBuffer",""],["DecodingResult","Result of a decoding process"]],"fn":[["fp_predict_f32",""],["fp_predict_f64",""]],"mod":[["ifd","Function for reading TIFF tags"]],"struct":[["Decoder","The representation of a TIFF decoder"],["Limits","Decoding limits"]]};

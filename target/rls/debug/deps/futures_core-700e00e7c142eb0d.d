@@ -1,0 +1,11 @@
+/home/kobruh/Projects/RASCII/target/rls/debug/deps/futures_core-700e00e7c142eb0d.rmeta: /home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/lib.rs /home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/future.rs /home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/stream.rs /home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/task/mod.rs /home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/task/poll.rs /home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/task/__internal/mod.rs /home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/task/__internal/atomic_waker.rs
+
+/home/kobruh/Projects/RASCII/target/rls/debug/deps/futures_core-700e00e7c142eb0d.d: /home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/lib.rs /home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/future.rs /home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/stream.rs /home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/task/mod.rs /home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/task/poll.rs /home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/task/__internal/mod.rs /home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/task/__internal/atomic_waker.rs
+
+/home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/lib.rs:
+/home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/future.rs:
+/home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/stream.rs:
+/home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/task/mod.rs:
+/home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/task/poll.rs:
+/home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/task/__internal/mod.rs:
+/home/kobruh/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-core-0.3.25/src/task/__internal/atomic_waker.rs:

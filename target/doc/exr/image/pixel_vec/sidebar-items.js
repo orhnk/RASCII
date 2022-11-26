@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["PixelVec","Store all samples in a single array. All samples will be converted to the type `T`. This supports all the sample types, `f16`, `f32`, and `u32`."]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":[["BYTES","The first four bytes of each exr file."]],"fn":[["is_exr","Consumes four bytes from the reader and returns whether the file may be an exr file."],["validate_exr","Validate this image. If it is an exr file, return `Ok(())`."],["write","Without validation, write this instance to the byte stream."]]};

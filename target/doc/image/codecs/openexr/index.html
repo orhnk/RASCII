@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Decoding of OpenEXR (.exr) Images"><meta name="keywords" content="rust, rustlang, rust-lang, openexr"><title>image::codecs::openexr - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../image/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../../../image/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"><a href="#">Module openexr</a></h2><div class="sidebar-elems"><section><div class="block"><ul><li><a href="#structs">Structs</a></li></ul></div></section></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../image/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><div id="settings-menu" tabindex="-1">
+                                <a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Module <a href="../../index.html">image</a>::<wbr><a href="../index.html">codecs</a>::<wbr><a class="mod" href="#">openexr</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../../../src/image/codecs/openexr.rs.html#1-592">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Decoding of OpenEXR (.exr) Images</p>
+<p>OpenEXR is an image format that is widely used, especially in VFX,
+because it supports lossless and lossy compression for float data.</p>
+<p>This decoder only supports RGB and RGBA images.
+If an image does not contain alpha information,
+it is defaulted to <code>1.0</code> (no transparency).</p>
+<h2 id="related-links"><a href="#related-links">Related Links</a></h2>
+<ul>
+<li><a href="https://www.openexr.com/documentation.html">https://www.openexr.com/documentation.html</a> - The OpenEXR reference.</li>
+</ul>
+<p>Current limitations (July 2021):
+- only pixel type <code>Rgba32F</code> and <code>Rgba16F</code> are supported
+- only non-deep rgb/rgba files supported, no conversion from/to YCbCr or similar
+- only the first non-deep rgb layer is used
+- only the largest mip map level is used
+- pixels outside display window are lost
+- meta data is lost
+- dwaa/dwab compressed images not supported yet by the exr library
+- (chroma) subsampling not supported yet by the exr library</p>
+</div></details><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.OpenExrDecoder.html" title="image::codecs::openexr::OpenExrDecoder struct">OpenExrDecoder</a></div><div class="item-right docblock-short"><p>An OpenEXR decoder. Immediately reads the meta data from the file.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.OpenExrEncoder.html" title="image::codecs::openexr::OpenExrEncoder struct">OpenExrEncoder</a></div><div class="item-right docblock-short"><p>A thin wrapper that implements <code>ImageEncoder</code> for OpenEXR images. Will behave like <code>image::codecs::openexr::write_buffer</code>.</p>
+</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="image" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0 (4b91a6ea7 2022-08-08)" ></div>
+</body></html>

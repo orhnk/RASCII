@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["Decoder","The state for decoding data with an LZW algorithm."],["IntoStream","A decoding stream sink."],["IntoVec","A decoding sink into a vector."]]};
