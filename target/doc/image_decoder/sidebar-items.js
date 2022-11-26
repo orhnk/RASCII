@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":[["convert",""],["decode_img","This function returns all pixels in the given path"],["take_input","Allows you to take input from standard input."]],"struct":[["Img",""],["Pixel","Implented for:"]],"trait":[["Image",""]]};

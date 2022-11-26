@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":[["Repeat","Number of repetitions for a GIF animation"]],"struct":[["GifDecoder","GIF decoder"],["GifEncoder","GIF encoder."],["GifReader","Wrapper struct around a `Cursor<Vec<u8>>`"]]};

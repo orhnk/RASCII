@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":[["RoundingMode","Round up or down in specific calculations."]],"struct":[["Vec2","Simple two-dimensional vector of any numerical type. Supports only few mathematical operations as this is used mainly as data struct."]]};

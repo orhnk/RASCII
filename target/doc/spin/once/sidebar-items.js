@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":[["Once","A primitive that provides lazy one-time initialization."]]};

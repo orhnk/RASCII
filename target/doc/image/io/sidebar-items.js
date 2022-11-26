@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":[["LimitSupport","Set of supported strict limits for a decoder."],["Limits","Resource limits for decoding."],["Reader","A multi-format image reader."]]};

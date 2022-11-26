@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":[["Lazy","A value which is initialized on the first access."]]};

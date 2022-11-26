@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":[["traits","Import this specifically if you want to be explicit but still use the extension traits."]],"struct":[["SmallVec","A `Vec`-like container that can store a small number of elements inline."],["f16","A 16-bit floating point type implementing the IEEE 754-2008 standard `binary16` a.k.a `half` format."]]};

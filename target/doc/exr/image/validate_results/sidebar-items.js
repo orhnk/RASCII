@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":[["ValidationOptions","Whether to do accurate or approximate comparison."]],"trait":[["ValidateResult","Compare two objects, but with a few special quirks. Intended mainly for unit testing."]],"type":[["ValidationResult","If invalid, contains the error message."]]};

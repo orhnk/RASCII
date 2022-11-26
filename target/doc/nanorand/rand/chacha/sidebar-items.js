@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":[["ChaCha","An instance of the ChaCha random number generator. Seeded from the system entropy generator when available. This generator is theoretically cryptographically secure."]],"type":[["ChaCha12","The ChaCha CSPRNG, with 12 rounds."],["ChaCha20","The ChaCha CSPRNG, with 20 rounds."],["ChaCha8","The ChaCha CSPRNG, with 8 rounds."]]};

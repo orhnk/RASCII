@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":[["WyRand","An instance of the WyRand random number generator. Seeded from the system entropy generator when available. This generator is NOT cryptographically secure."]]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":[["Builder","`ThreadPool` factory, which can be used in order to configure the properties of the `ThreadPool`."],["ThreadPool","Abstraction of a thread pool for basic parallelism."]]};

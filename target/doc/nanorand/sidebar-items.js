@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":[["buffer","Provides a buffered wrapper for RNGs, preventing bits from being wasted."],["crypto","Implementation of cryptography, for CSPRNGs."],["entropy","Sources for obtaining entropy."],["gen","Traits for generating types from an RNG."],["rand","RNG algorithms."],["tls","Provides a thread-local [`WyRand`] RNG."]]};

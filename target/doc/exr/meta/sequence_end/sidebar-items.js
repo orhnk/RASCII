@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":[["byte_size","Number of bytes this would consume in an exr file."],["has_come","Peeks the next byte. If it is zero, consumes the byte and returns true."],["write","Without validation, write this instance to the byte stream."]]};
