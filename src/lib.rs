@@ -38,7 +38,7 @@ pub struct Img {
 /// is no Destruction header for this struct
 pub struct ConvErr;
 
-#[derive(Debug)]
+
 /// # Implented for:
 ///
 /// creating a custom data type that represents a pixel in an image
@@ -50,6 +50,7 @@ pub struct ConvErr;
 /// # Destruction:
 ///
 /// You could destructure it with public structs or (I will create methods for this [I hope so :D])
+#[derive(Debug)]
 pub struct Pixel((u32, u32), (u8, u8, u8, u8));
 
 /// # Implented for:
