@@ -44,7 +44,7 @@ of course you could mix these commands
 # Samples:
 
 Im on linux so:
-`rascii -p /photos/ferris.jpeg -i >> ferris.txt` -> It just stores the output on ferris.txt, If you just want to see the results (not store) you're gonna do: `rascii -p /photos/ferris.jpeg -i`
+`rascii -p /photos/ferris.jpeg -i >> ferris.txt` -> It just stores the output on ferris.txt, If you want to see the results only (not store) you're gonna do: `rascii -p /photos/ferris.jpeg -i`
 
 ![Screenshot_RASCII 1 : fish_1](https://user-images.githubusercontent.com/101834410/204127853-2e607251-5675-4d9b-aa19-a9d8a8bc687a.png)
 
