@@ -112,19 +112,31 @@ pub fn convert() -> String {
         );
         process::exit(1);
     }
-    if sub_commands.iter().any(|i| i == "-h") || sub_commands.iter().any(|i| i == "--help") {
+    if sub_commands.iter().any(|i| i == "-h" || i == "--help") {
         print_help();
     }
-    let reverse =
-        sub_commands.iter().any(|i| i == "-i") || sub_commands.iter().any(|i| i == "--invert");
-    let colored =
-        sub_commands.iter().any(|i| i == "-c") || sub_commands.iter().any(|i| i == "--colored");
-    let path = if sub_commands.iter().any(|i| i == "-p") {
-        &sub_commands[&sub_commands.iter().position(|i| i == "-p").unwrap() + 1]
-    // have to fix these unwraps!
-    } else if sub_commands.iter().any(|i| i == "--path") {
-        &sub_commands[&sub_commands.iter().position(|i| i == "--path").unwrap() + 1]
-    // !
+    let reverse = sub_commands.iter().any(|i| i == "-i" || i == "--invert");
+    let colored = sub_commands
+        .iter()
+        .any(|i| i == "-c" || i == "--colored" || i == "--color");
+    let path = if sub_commands.iter().any(|i| i == "-p" || i == "--path") {
+        &sub_commands[&sub_commands
+            .iter()
+            .position(|i| i == "-p" || i == "--path")
+            .unwrap_or_else(|| {
+                eprint!(
+                    "
+            You have to enter: 
+            rascii -p <path>
+            /* or */
+            rascii --path <path>
+            -> to be able to convert an image in path!
+            -> Program has to know where is the image you are looking!
+                "
+                );
+                process::exit(1);
+            })
+            + 1]
     } else {
         eprintln!(
             "Help adding:\n
@@ -154,7 +166,10 @@ pub fn convert() -> String {
         Ok::<Img, ImageError>(result)
     };
 
-    let img = open_img(path).unwrap(); // will clear it out later! unwrap!
+    let img = open_img(path).unwrap_or_else(|_| {
+        eprint!("Couldn't open image file in path!");
+        process::exit(1);
+    });
 
     let sat = img.take_appearance();
 
@@ -187,7 +202,18 @@ pub fn convert() -> String {
             let ascii_char = char_list
                 .chars()
                 .nth(index)
-                .expect("this cannot raise an error (I guess you did not entered a valid path)")
+                .unwrap_or_else(|| {
+                    eprintln!(
+                        "
+                You entered an unvalid path!
+                If your path has white_spaces, you have to change the name of the file!
+                Exmpl:
+                    rascii -p Img (1).jpeg -> unvalid!
+                    rascii -p Img(1).jpeg -> valid!
+                    "
+                    );
+                    process::exit(1);
+                })
                 .to_string();
             // print!("{}", &char_list.chars().nth(index).expect("This cannot raise an error (I guess you did not entered a valid path)"));
             if i.0 .1 > y_init {
@@ -232,6 +258,7 @@ Commands (rascii <Command>):
     -i, --invert // to be able to create images without white background. (if your image has a white plain and you want to ignore it use this command)
     -c, --colored // (not implemented yet!)
     -h, --help // to acces this window
+
     |If you dont understand, Just ask your mom|
     ||This project is rusty, so it is fast! really!||
     ");
