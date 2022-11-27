@@ -6,6 +6,7 @@ image to ascii art fully created with rust 🦀 🚀
 # Installation
 
 FOR LINUX:
+
 `git clone https://github.com/KoBruhh/RASCII.git`
 `cd RASCII`
 `./INSTALL`
