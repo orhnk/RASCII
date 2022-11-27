@@ -1,5 +1,3 @@
-git clone https://github.com/KoBruhh/RASCII.git
-cd RASCII
 cargo build --release
 echo "You have to be root btw!"
 sudo cp target/release/rascii /usr/bin
