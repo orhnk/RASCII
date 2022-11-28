@@ -135,7 +135,8 @@ pub fn convert() -> String {
         // all lines has to contain same amount of pixels!
         // but hindi chars have dependent width!
         // thats why I am not doing it!
-        ("emoji", "😀😃😄😁😆😅🤣😂🙂🙃😇😉😊😋😌🥰😍🤩😘😗😙🥲😚😜🤪😝🤑🤭🤫🤔🤐🤨🤗😛😎🤓🧐😏😶😐😑😒🙄😬🤥😳🥺😞😟😠🤬😡😔😕🙁😣😖😫🥱😩😤😮😱😨😰😯😦😧😢😥😪🤤😓😭😵😲😷🤒🤕🤢🤮🤧🥵🥶🥴😵🤯🤠🥳🥸😴💤🤡😈👿👹👺💀👻👽👾😺😸😹😻😼😽🙀😿😾🙌👏👋🤛🤜🤚👍👎👊✊🤞🤟🤘🤙👌🤌🤏✋👐💪🦾🦿🦵🦶🤲🤝🙏👆👇👈👉🖐🖖💅🤳👄👅👂🦻👃🧠🫀🫁🦷🦴👁👀👤👥🗣👶🧒👦👧🧑👨🧔👩🧓👱👴👵👲👳👮👷💂🥷🕵🎅👼🤶🦸🦹🧙🧚🧛🧜🧝🧞🧟🤴👸🧕🤵🤰🤱👰🚶🧍🧎🏃💃👯🧖🧗👫👬👭🙇🤦🤷"),
+        ("emoji", "😆😅🤣😉😊😋🤩😝🤑🤐🤗😛🧐😶😐🙄😠🤬😡😔🙁😫😩😮😱😨😰😯😓😭🤕🤢🤮🥵🥶🥳🥸😴💤🤡👹🦀👺💀👻👽👾😺🙀😿😾🙌🤛🤚👊🤞🤘👌🤏💪🦾🦿🤝🙏👆🖖💅🤳👄🦀👿🦀👅👂🦻👃🧠🫀🫁🦷🦴👁👀👤👥🗣👶🧔"),
+        ("ansi", "█▓▒░ "),
         ("slight", "$@%8W*adpLY\\|){[?_~>!I:\"`.   "),
     ]); // contains supported char_lists
     let print_help = || {
@@ -149,7 +150,7 @@ pub fn convert() -> String {
         -bg, --background // to paint background with the color of the pixel!
         -wc, --with-color <R> <G> <B> // to create custom colored ASCII arts! you could mix these with -bg !
         -px, --pixelated // to convert output to pixelart
-        -l <your_char_list_or `Available lists at bottom appendix I`> --list <your_char_list_or `Appendix I`> // allows you to create custom lists! and use builtin char_lists! 
+        -l <your_char_list_or `Available lists at bottom appendix I`> --list <your_char_list_or `Appendix I`> // allows you to create custom lists! and use builtin char_lists!
 
     |If you dont understand, Just ask your mom|
     ||This project is rusty, so it is fast! really!||
@@ -178,7 +179,7 @@ pub fn convert() -> String {
             .unwrap_or_else(|| {
                 eprint!(
                     "
-            You have to enter: 
+            You have to enter:
             rascii -p <path>
             /* or */
             rascii --path <path>
