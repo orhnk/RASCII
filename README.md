@@ -25,10 +25,34 @@ FOR WİNDOWS:
 
 # Linux:
 ```shell
-`rascii --help` // to get help
-`rascii --path <img/to/path>` /* or */ `rascii -p <img/to/path>`
-`rascii -p <img> -i` // to invert black and white! (if your image has white background use this if you want to ignore white background)
-`rascii -p <img> -c` /* or */ `rascii -p <img> --colored` // to make it colored !!! Still in development !!!
+~This program allows you to create ASCII art from any image (.png, .jpeg, .jpg ...)~
+SubCommands (rascii <SubCommand>):
+-p, --path <path/to/image> // given path is the image path that you want to convert.
+-i, --invert // to be able to create images without white background. (if your image has a white plain and you want to ignore it use this command)
+-c, --colored // to make ASCII art colored
+-h, --help // to access this window
+-bg, --background // to paint background with the color of the pixel!
+-wc, --with-color <R> <G> <B> // to create custom colored ASCII arts! you could mix these with -bg !
+-px, --pixelated // to convert output to pixelart
+-l <your_char_list_or `Available lists at bottom appendix I`> --list <your_char_list_or `Appendix I`> // allows you to create custom lists! and use builtin char_lists!
+
+|If you dont understand, Just ask your mom|
+||This project is rusty, so it is fast! really!||
+
+Appendix I
+Don't forget that you could enter your own list by:
+rascii -p <path/to/path> -l <your_char_list_or || names below!>
+Exmpl:
+rascii -p <path/to/path> -l bruh // creats your image by using ['b', 'r', 'u', 'h']
+rascii -p <path/to/path> -l emoji // creates your image by using emojis -> bcuz list below contains a list named: "emoji"!
+Builtin_lists: [
+"slight",
+"russian",
+"chinese",
+"emoji",
+"japanese",
+"ansi",
+]
 ```
 of course you could mix these commands
 
@@ -36,17 +60,15 @@ of course you could mix these commands
 ```shell
 `cd target/release/` //to be able to 
 `./rascii --help` // to get help
- `./rascii --path <img/to/path>` /* or */ `rascii -p <img/to/path>`
- `./rascii -p <img> -i` // to invert black and white! (if your image has black background use this if you want to ignore black background)
- `./rascii -p <img> -c` /* or */ `./rascii -p <img> --colored` // to make it colored !!! Still in development !!!
+ REST IS SAME WITH LINUX! but you have to do `./rascii` instead of `rascii`
 ```
 
 # Samples:
 
 Im on linux so:
-`rascii -p /photos/ferris.jpeg -i >> ferris.txt` -> It just stores the output on ferris.txt, If you want to see the results only (not store) you're gonna do: `rascii -p /photos/ferris.jpeg -i`
+`rascii -p /photos/ferris.jpeg -i -c >> ferris.txt` -> It just stores the output on ferris.txt, If you want to see the results only (not store) you're gonna do: `rascii -p /photos/ferris.jpeg -i -c`
 
-![Screenshot_RASCII 1 : fish_1](https://user-images.githubusercontent.com/101834410/204127853-2e607251-5675-4d9b-aa19-a9d8a8bc687a.png)
+
 
 
 Or I could do an amogus! LOL
