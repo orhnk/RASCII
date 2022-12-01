@@ -41,7 +41,7 @@ SubCommands (rascii <SubCommand>):
 -i, --invert // to be able to create images without white background. (if your image has a white plain and you want to ignore it use this command)
 -c, --colored // to make ASCII art colored
 -h, --help // to access this window
--r, --ratio // to resize img, It could be higher than hundred! but can't be lower than zero!
+-r, --ratio // to resize img, It could be higher than hundred! but cant be lower than zero!
 -bg, --background // to paint background with the color of the pixel!
 -wc, --with-color <R> <G> <B> // to create custom colored ASCII arts! you could mix these with -bg !
 -px, --pixelated // to convert output to pixelart
@@ -51,7 +51,7 @@ SubCommands (rascii <SubCommand>):
 ||This project is rusty, so it is fast! really!||
 
 Appendix I
-Don't forget that you could enter your own list by:
+Dont forget that you could enter your own list by:
 rascii -p <path/to/path> -l <your_char_list_or || names below!>
 Exmpl:
 rascii -p <path/to/path> -l bruh // creats your image by using ['b', 'r', 'u', 'h']
