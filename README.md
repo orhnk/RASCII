@@ -15,15 +15,23 @@ lots of customizations avaliable! ✔️
 
 # Installation
 
-FOR LINUX:
+FOR ALL PLATFORMS! (Using Cargo): (Not suggested! try your distrubution first!)
+
+`cargo install rascii_art`
+
+‼️ -> but now you have to use `rascii_art` keyword to invoke the program! so all the subcommands etc. given at the bottom have to use `rascii_art` instead of `rascii`
+
+# FOR LINUX:
 
 `git clone https://github.com/KoBruhh/RASCII.git`
+
 `cd RASCII`
+
 `./INSTALL`
 
-`If any error accurs please post it on issues section`
+If any error accurs please post it on issues section
 
-FOR WİNDOWS:
+# FOR WİNDOWS:
 
 `git clone https://github.com/KoBruhh/RASCII.git`
 
