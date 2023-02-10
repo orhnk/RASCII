@@ -25,20 +25,24 @@ FOR ALL PLATFORMS! (Using Cargo): (Not suggested! try your distrubution first!)
 
 **FOR LINUX:**
 
-`git clone https://github.com/KoBruhh/RASCII.git`
+```
+git clone https://github.com/KoBruhh/RASCII.git
 
-`cd RASCII`
+cd RASCII
 
-`./INSTALL # Moves binaries to /usr/bin/`
+./INSTALL # Moves binaries to /usr/bin/
+```
 
 
 **FOR WİNDOWS:**
 
-`git clone https://github.com/KoBruhh/RASCII.git`
+```
+git clone https://github.com/KoBruhh/RASCII.git
 
-`cd RASCII`
+cd RASCII
 
-`cargo build --release # You have to move your binary (target/release/) to your own $PATH manually`
+cargo build --release # You have to move your binary (target/release/) to your own $PATH manually
+```
 
 # Usage:
 
