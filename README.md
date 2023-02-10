@@ -5,43 +5,43 @@
 # RASCII
 image to ascii art fully created with rust 🦀 🚀
 
-multiple language character lists -> ✔️
+multi-language generation -> ✔️
 
-creatable custom char list -> ✔️
+custom char list -> ✔️
 
-pixel art creaton -> ✔️
+pixelart generation for terminal -> ✔️
 
-lots of customizations avaliable! ✔️
+a lot more
 
 # Installation
 
 FOR ALL PLATFORMS! (Using Cargo): (Not suggested! try your distrubution first!)
 
+# RECOMMENDED
+
 `cargo install rascii_art`
 
-‼️ -> but now you have to use `rascii_art` keyword to invoke the program! so all the subcommands etc. given at the bottom have to use `rascii_art` instead of `rascii`
+# MANUAL
 
-# FOR LINUX:
-
-`git clone https://github.com/KoBruhh/RASCII.git`
-
-`cd RASCII`
-
-`./INSTALL`
-
-If any error accurs please post it on issues section
-
-# FOR WİNDOWS:
+**FOR LINUX:**
 
 `git clone https://github.com/KoBruhh/RASCII.git`
 
 `cd RASCII`
 
-`cargo build --release`
+`./INSTALL # Moves binaries to /usr/bin/`
+
+
+**FOR WİNDOWS:**
+
+`git clone https://github.com/KoBruhh/RASCII.git`
+
+`cd RASCII`
+
+`cargo build --release # You have to move your binary (target/release/) to your own $PATH manually`
 
 # Usage:
 
-# Linux:
 ```shell
 ~This program allows you to create ASCII art from any image (.png, .jpeg, .jpg ...)~
 SubCommands (rascii <SubCommand>):
@@ -75,19 +75,11 @@ Builtin_lists: [
 ```
 of course you could mix these commands
 
-# Windows:
-```shell
-`cd target/release/` //to be able to 
-`./rascii --help` // to get help
- REST IS SAME WITH LINUX! but you have to do `./rascii` instead of `rascii`
-```
-
 # Samples:
 
-Im on linux so:
-`rascii -p /photos/ferris.jpeg -i -c -l japanese >> ferris.txt` -> It just stores the output on ferris.txt,
+`rascii -p /photos/ferris.jpeg -i -c -l japanese >> ferris.txt` -> It will stores the output on ferris.txt,
 
-If you want to see the results only (not store) you're gonna do: `rascii -p /photos/ferris.jpeg -i -c -l japanese` // both uses builtin japanese char list
+If you want to see the results only (not store) you have to do: `rascii -p /photos/ferris.jpeg -i -c -l japanese` // both uses builtin japanese char list
 
 # Japanese
 
@@ -98,7 +90,7 @@ If you want to see the results only (not store) you're gonna do: `rascii -p /pho
 
 
 # Emoji
-Not that perfect, bcuz emojis are pretty complicated by look! thats why pictur is a bit noisy
+Not that perfect, because emojis are pretty complicated by their look! thats why picture below is a bit noisy
 ![Screenshot_RASCII : fish_2](https://user-images.githubusercontent.com/101834410/204243964-f4cfdf8d-10b9-4a2c-8d3c-41182320c789.png)
 
 
@@ -150,3 +142,5 @@ Or I could do an amogus! LOL
 Go inside the directory you entered `./INSTALL`
 
 `cargo doc --open`
+
+**If any error accurs please post it on issues section**
