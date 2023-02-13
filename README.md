@@ -5,31 +5,31 @@
 # RASCII
 image to ascii art fully created with rust 🦀 🚀
 
-multi-language generation -> ✔️
+multi-language generation -> ✔
 
-custom char list -> ✔️
+custom char list -> ✔
 
-pixelart generation for terminal -> ✔️
+pixelart generation for terminal -> ✔
 
 a lot more
 
 # Installation
 
-FOR ALL PLATFORMS! (Using Cargo): (Not suggested! try your distrubution first!)
+# Cross-Platform (Cargo):
 
-# RECOMMENDED
+**RECOMMENDED**
 
 `cargo install rascii_art`
 
 # MANUAL
 
+**(Not suggested!)**
+
 **FOR LINUX:**
 
 ```
 git clone https://github.com/KoBruhh/RASCII.git
-
 cd RASCII
-
 ./INSTALL # Moves binaries to /usr/bin/
 ```
 
@@ -38,9 +38,7 @@ cd RASCII
 
 ```
 git clone https://github.com/KoBruhh/RASCII.git
-
 cd RASCII
-
 cargo build --release # You have to move your binary (target/release/) to your own $PATH manually
 ```
 
