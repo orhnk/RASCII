@@ -3,6 +3,7 @@ name = "rascii"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
+description = "An Advanced ASCII Art Generator"
 
 [dependencies]
 image = "0.24.5"
