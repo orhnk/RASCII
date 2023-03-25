@@ -3,25 +3,25 @@
 </p>
 
 # RASCII
+
 image to ascii art fully created with rust 🦀 🚀
 
-multi-language generation -> ✔
+## Features:
 
-custom char list -> ✔
-
-pixelart generation for terminal -> ✔
-
-a lot more
+    * Multi-language support -> ✔
+    * Custom char list -> ✔
+    * pixelart support for terminal -> ✔
+    ...
 
 # Installation
 
-# Cross-Platform (Cargo):
+## Cross-Platform (Cargo):
 
 **RECOMMENDED**
 
 `cargo install rascii_art`
 
-# MANUAL
+## MANUAL
 
 **(Not suggested!)**
 
@@ -33,13 +33,12 @@ cd RASCII
 ./INSTALL # Moves binaries to /usr/bin/
 ```
 
-
 **FOR WİNDOWS:**
 
 ```
 git clone https://github.com/KoBruhh/RASCII.git
 cd RASCII
-cargo build --release # You have to move your binary (target/release/) to your own $PATH manually
+cargo build --release # You have to move your binary (target/release/) to your own $PATH manually (Your Program Files Directory)
 ```
 
 # Usage:
@@ -75,6 +74,7 @@ Builtin_lists: [
 "russian",
 ]
 ```
+
 of course you could mix these commands
 
 # Samples:
@@ -89,19 +89,17 @@ If you want to see the results only (not store) you have to do: `rascii -p /phot
   <img src="https://user-images.githubusercontent.com/101834410/204259580-46ea59ae-e7d1-4f96-b14f-1d90f2376f6f.png">
 </p>
 
-
-
 # Emoji
+
 Not that perfect, because emojis are pretty complicated by their look! thats why picture below is a bit noisy
 ![Screenshot_RASCII : fish_2](https://user-images.githubusercontent.com/101834410/204243964-f4cfdf8d-10b9-4a2c-8d3c-41182320c789.png)
 
-
 # Chinese
+
 ![Screenshot_RASCII : fish_15](https://user-images.githubusercontent.com/101834410/204243902-4de1e10a-4e86-455d-8817-09b57ca2bc40.png)
 
-
-
 # Custom ASCII list stored on environment variable!
+
 I am using fish so I am using `set <var> <value>` to create an env var!
 
 If you use bash or such you have to use `export <var>=<value>`
@@ -116,13 +114,12 @@ Also dont forget that you could insert your list directly to -l ->
 Ansi based ($ANSI_CHAR_LIST)
 ![Screenshot_RASCII : fish_9](https://user-images.githubusercontent.com/101834410/204243768-4a15bb21-ba93-4979-bd4f-d8e8b1dc4112.png)
 
-
 # Custom colored images!
 
 ![Screenshot_RASCII : fish_13](https://user-images.githubusercontent.com/101834410/204243664-749a1923-9284-4adf-a3a8-a8fcb9342791.png)
 
-
 # Pixelart Convertion!
+
 <p align="center">
   <img src="https://user-images.githubusercontent.com/101834410/204243571-f6697b6f-f27d-4da1-a75c-c2c51723978d.png">
 </p>
@@ -131,18 +128,10 @@ Ansi based ($ANSI_CHAR_LIST)
   <img src="https://user-images.githubusercontent.com/101834410/204244536-f1c3674a-2c96-4d00-a310-c5cff63d3348.png">
 </p>
 
-
 Or I could do an amogus! LOL
+
 <p align="center">
   <img src="https://user-images.githubusercontent.com/101834410/204243525-ed62e0df-789d-4da8-a3a5-3919c548e050.png">
 </p>
-
-
-
-# Read Documentation / Code
-
-Go inside the directory you entered `./INSTALL`
-
-`cargo doc --open`
 
 **If any error accurs please post it on issues section**
