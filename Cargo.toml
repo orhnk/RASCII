@@ -1,6 +1,6 @@
 [package]
-name = "rascii"
-version = "0.1.0"
+name = "rascii_art"
+version = "0.1.1"
 edition = "2021"
 license = "MIT"
 description = "An Advanced ASCII Art Generator"
