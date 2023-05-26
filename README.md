@@ -17,7 +17,7 @@ Options:
   -H, --height <HEIGHT>    Height of the output image, if not specified, it will be calculated to keep the aspect ratio. [default: 0]
   -c, --color              Whether to use colors in the output image.
   -i, --invert             Inverts the weights of the characters. Useful for white backgrounds.
-  -C, --charset <CHARSET>  Characters used to render the image, from translucent to opaque. Built-in charsets: ansi, emojis, russian, slight. [default: default]
+  -C, --charset <CHARSET>  Characters used to render the image, from translucent to opaque. Built-in charsets: ansi, emojis, default, russian, slight. [default: default]
   -h, --help               Print help
   -V, --version            Print version
 ```

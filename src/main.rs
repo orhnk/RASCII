@@ -34,7 +34,7 @@ struct Args {
         long,
         default_value = "default",
         help = "Characters used to render the image, from translucent to opaque. Built-in \
-                charsets: ansi, emojis, russian, slight."
+                charsets: ansi, emojis, default, russian, slight."
     )]
     charset: String,
 }
