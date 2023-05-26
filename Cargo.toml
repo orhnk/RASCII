@@ -13,3 +13,4 @@ image = "0.24"
 
 [[bin]]
 name = "rascii"
+path = "src/main.rs"
