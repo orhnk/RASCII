@@ -1,6 +1,7 @@
 *
 
 !src/
+!src/render/
 
 !.gitignore
 !Cargo.lock
