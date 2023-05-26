@@ -1,9 +1,24 @@
-use std::io::{self, Write};
+use std::io::{
+    self,
+    Write,
+};
 
-use image::{DynamicImage, Rgba, Pixel};
-use termcolor::{Buffer, Color, WriteColor, ColorSpec, BufferWriter};
+use image::{
+    DynamicImage,
+    Rgba,
+};
+use termcolor::{
+    Buffer,
+    BufferWriter,
+    Color,
+    ColorSpec,
+    WriteColor,
+};
 
-use super::{ResourceOptions, Renderer};
+use super::{
+    Renderer,
+    ResourceOptions,
+};
 
 pub struct ImageRenderer {
     image: DynamicImage,
@@ -26,13 +41,20 @@ impl ImageRenderer {
 
 impl Renderer<DynamicImage> for ImageRenderer {
     fn new(image: DynamicImage, options: ResourceOptions, writer: BufferWriter) -> Self {
-        Self { image, options, writer }
+        Self {
+            image,
+            options,
+            writer,
+        }
     }
 
     fn render(mut self) -> io::Result<()> {
         let mut buffer = self.writer.buffer();
-        let image = self.image.thumbnail_exact(self.options.width, self.options.height).to_rgba8();
-    
+        let image = self
+            .image
+            .thumbnail_exact(self.options.width, self.options.height)
+            .to_rgba8();
+
         let mut current_line = 0;
         for (_, line, pixel) in image.enumerate_pixels() {
             if current_line < line {
@@ -47,7 +69,7 @@ impl Renderer<DynamicImage> for ImageRenderer {
             let char_for_pixel = self.get_char_for_pixel(pixel);
             write!(&mut buffer, "{}", char_for_pixel)?;
         }
-        
+
         buffer.set_color(&Default::default())?;
         self.writer.print(&buffer)?;
 
