@@ -21,19 +21,20 @@ struct Args {
                 aspect ratio."
     )]
     height: u32,
+    #[arg(short, long, help = "Whether to use colors in the output image.")]
+    color: bool,
     #[arg(
         short,
         long,
-        help = "Whether to use colors in the output image."
+        help = "Inverts the weights of the characters. Useful for white backgrounds."
     )]
-    color: bool,
-    #[arg(short, long, help = "Inverts the weights of the characters. Useful for white backgrounds.")]
     invert: bool,
     #[arg(
         short = 'C',
         long,
-        default_value = " .,:;i1tfLCG08@",
-        help = "Characters used to render the image, from translucent to opaque."
+        default_value = "default",
+        help = "Characters used to render the image, from translucent to opaque. Built-in \
+                charsets: ansi, emojis, russian, slight."
     )]
     charset: String,
 }
@@ -44,8 +45,23 @@ fn main() -> image::ImageResult<()> {
     let dyn_image = image::open(args.filename)?;
 
     if args.height == 0 {
-        // The 2.0 multiplier is because terminals often have a 1 to 2 aspect ratio on the width and height.
-        args.height = (dyn_image.height() as f64 * args.width as f64 / dyn_image.width() as f64 / 2.0) as u32;
+        // The 2.0 multiplier is because terminals often have a 1 to 2 aspect ratio on
+        // the width and height.
+        args.height =
+            (dyn_image.height() as f64 * args.width as f64 / dyn_image.width() as f64 / 2.0) as u32;
+    }
+
+    for (name, charset) in [
+        ("ansi", "░▒▓█"),
+        ("default", " .`^\"\\,:;Il!i><~+_-?][}{1)(|\\\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B$@"),
+        ("emojis", "。，🧔👶🗣👥👤👀👁🦴🦷🫁🫀🧠👃🦻👂👅🦀👿🦀👄🤳💅🖖👆🙏🤝🦿🦾💪🤏👌🤘🤞👊🤚🤛🙌😾😿🙀😺👾👽👻💀👺🦀👹🤡💤😴🥸🥳🥶🥵🤮🤢🤕😭😓😯😰😨😱😮😩😫🙁😔😡🤬😠🙄😐😶🧐😛🤗🤐🤑😝🤩😋😊😉🤣😅😆"),
+        ("russian", "  ЯЮЭЬЫЪЩШЧЦХФУТСPПОНМЛКЙИЗЖЁЕДГВБА"),
+        ("slight", "   .`\"\\:I!>~_?[{)|\\\\YLpda*W8%@$"),
+    ] {
+        if args.charset == name {
+            args.charset = String::from(charset);
+            break;
+        }
     }
 
     let options = render::ResourceOptions {

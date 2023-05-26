@@ -33,10 +33,11 @@ impl ImageRenderer {
     }
 
     fn get_char_for_pixel(&self, pixel: &Rgba<u8>) -> char {
-        let char_index = ((pixel[3] as f64 / 255.0) * (self.options.charset.len() as f64 - 1.0)) as usize;
+        let char_index =
+            ((pixel[3] as f64 / 255.0) * (self.options.charset.len() as f64 - 1.0)) as usize;
 
         if self.options.invert {
-            self.options.charset[self.options.charset.len() - 1 - char_index ]
+            self.options.charset[self.options.charset.len() - 1 - char_index]
         } else {
             self.options.charset[char_index]
         }
