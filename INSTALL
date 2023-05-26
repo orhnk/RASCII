@@ -1,6 +1,0 @@
-cargo build --release
-echo "You have to be root btw!"
-sudo cp target/release/rascii /usr/bin
-rascii
-echo "enjoy :D"
-echo "do |rascii --help| to see what you can do!"
