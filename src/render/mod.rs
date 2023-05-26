@@ -14,6 +14,7 @@ pub struct ResourceOptions {
     pub width: u32,
     pub height: u32,
     pub colorful: bool,
+    pub invert: bool,
     pub charset: Vec<char>,
 }
 

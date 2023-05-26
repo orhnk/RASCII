@@ -27,6 +27,8 @@ struct Args {
         help = "Whether to use colors in the output image."
     )]
     color: bool,
+    #[arg(short, long, help = "Inverts the weights of the characters. Useful for white backgrounds.")]
+    invert: bool,
     #[arg(
         short = 'C',
         long,
@@ -50,6 +52,7 @@ fn main() -> image::ImageResult<()> {
         width: args.width,
         height: args.height,
         colorful: args.color,
+        invert: args.invert,
         charset: args.charset.chars().collect(),
     };
 
