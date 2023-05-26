@@ -1,1 +1,11 @@
-target/
+*
+
+!src/
+
+!.gitignore
+!Cargo.lock
+
+!*.md
+!*.rs
+!*.sh
+!*.toml
