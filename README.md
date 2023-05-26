@@ -1,11 +1,26 @@
-<div align="start">
+<div align="center">
   <p style="margin-bottom: 0 !important;">
-    <img alt="RASCII Logo" src="" width=200>
+    <img alt="RASCII Logo" src="https://user-images.githubusercontent.com/101834410/204127025-b98aaf39-778b-468b-8f41-36fd858708e8.png" width=600>
   </p>
-  <h1 style="font-size: 3em">RASCII</h1>
-
-Advanced ASCII art generator written in Rust 🦀🚀
 </div>
+
+```
+Advanced ASCII Art Generator
+
+Usage: rascii [OPTIONS] <FILENAME>
+
+Arguments:
+  <FILENAME>  Path to the image file.
+
+Options:
+  -w, --width <WIDTH>      Width of the output image [default: 128]
+  -H, --height <HEIGHT>    Height of the output image, if not specified, it will be calculated to keep the aspect ratio. [default: 0]
+  -c, --color              Whether to use colors in the output image.
+  -i, --invert             Inverts the weights of the characters. Useful for white backgrounds.
+  -C, --charset <CHARSET>  Characters used to render the image, from translucent to opaque. Built-in charsets: ansi, emojis, russian, slight. [default: default]
+  -h, --help               Print help
+  -V, --version            Print version
+```
 
 
 ## Features
@@ -65,8 +80,10 @@ You can use the `--charset` CLI option to provide a charset to use when generati
 The value of this must option must go from opaque to transparent, like so:
 
 ```sh
-rascii --charset ██▓▒░ --color ferris.png
+rascii --charset " ░▒▓█" --color ferris.png
 ```
+
+Note that the given charset is available as a builtin named `ansi`.
 
 ![RASCII output of Ferris with a custom charset](https://user-images.githubusercontent.com/101834410/204243768-4a15bb21-ba93-4979-bd4f-d8e8b1dc4112.png)
 
