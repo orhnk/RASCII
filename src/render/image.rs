@@ -64,7 +64,7 @@ impl Renderer<DynamicImage> for ImageRenderer {
         for (_, line, pixel) in image.enumerate_pixels() {
             if current_line < line {
                 current_line = line;
-                write!(&mut buffer, "\n")?;
+                writeln!(&mut buffer)?;
             }
 
             if self.options.colorful {
