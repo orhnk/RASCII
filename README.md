@@ -34,7 +34,7 @@ Options:
 
 ## Via Cargo
 
-> **Info** this is the reccomended way of installing RASCII.
+> **Info** this is the recommended way of installing RASCII.
 
 ```sh
 cargo install rascii_art
@@ -58,7 +58,7 @@ chmod +x install.sh
 
 ### Emoji Charset
 
-> **Note** The emoji charset does not guarrantee your outputs color will match the color of your image,
+> **Note** The emoji charset does not guarantee your outputs color will match the color of your image,
 > this is just a coincidence that happened with Ferris.
 
 ![RASCII output of ferris with the emoji charset.](https://user-images.githubusercontent.com/101834410/204243964-f4cfdf8d-10b9-4a2c-8d3c-41182320c789.png)
