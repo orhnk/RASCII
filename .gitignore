@@ -1,1 +1,13 @@
-target/
+*
+
+!src/
+!src/render/
+
+!.gitignore
+!Cargo.lock
+
+!*.md
+!*.nix
+!*.rs
+!*.sh
+!*.toml
