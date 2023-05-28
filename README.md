@@ -17,18 +17,17 @@ Options:
   -H, --height <HEIGHT>    Height of the output image, if not specified, it will be calculated to keep the aspect ratio. [default: 0]
   -c, --color              Whether to use colors in the output image.
   -i, --invert             Inverts the weights of the characters. Useful for white backgrounds.
-  -C, --charset <CHARSET>  Characters used to render the image, from translucent to opaque. Built-in charsets: ansi, emojis, default, russian, slight. [default: default]
+  -C, --charset <CHARSET>  Characters used to render the image, from translucent to opaque. Built-in charsets: block, emoji, default, russian, slight. [default: default]
   -h, --help               Print help
   -V, --version            Print version
 ```
 
-
 ## Features
 
-* Colored ASCII art generation using ANSI color codes.
-* Custom dimensions.
-* Custom characters: Supply your own charset to generate ASCII art!
-* Lots of pre-included charsets.
+- Colored ASCII art generation using ANSI color codes.
+- Custom dimensions.
+- Custom characters: Supply your own charset to generate ASCII art!
+- Lots of pre-included charsets.
 
 ## Installation
 
@@ -50,7 +49,7 @@ chmod +x install.sh
 ./install.sh
 ```
 
- ## Showcase
+## Showcase
 
 ### Japanese Charset
 
@@ -75,13 +74,11 @@ chmod +x install.sh
   </p>
 </div>
 
-
 <div align="center">
   <p style="margin-bottom: 0 !important;">
     <img alt="RASCII output of Ferris with the block charset" src="https://github.com/KoBruhh/RASCII/assets/101834410/5122c5ba-8707-489e-a720-caf2e183b026" width=600>
   </p>
 </div>
-
 
 ### Custom ASCII Charset
 
@@ -93,7 +90,7 @@ The value of this must option must go from opaque to transparent, like so:
 rascii --charset " ░▒▓█" --color ferris.png
 ```
 
-Note that the given charset is available as a builtin named `ansi`.
+Note that the given charset is available as a builtin named `block`.
 
 ![RASCII output of Ferris with a custom charset](https://user-images.githubusercontent.com/101834410/204243768-4a15bb21-ba93-4979-bd4f-d8e8b1dc4112.png)
 
