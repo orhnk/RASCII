@@ -68,29 +68,25 @@ chmod +x install.sh
 
 ### Block Charset
 
-<div align="center">
-  <p style="margin-bottom: 0 !important;">
-    <img alt="RASCII output of TrollPepe with the block charset" src="https://github.com/KoBruhh/RASCII/assets/101834410/3ac7e920-7ab4-441d-886e-2028b108578d" width=600>
-  </p>
-</div>
+![RASCII output of TrollPepe with the block charset](https://github.com/KoBruhh/RASCII/assets/101834410/3ac7e920-7ab4-441d-886e-2028b108578d)
 
-<div align="center">
-  <p style="margin-bottom: 0 !important;">
-    <img alt="RASCII output of Ferris with the block charset" src="https://github.com/KoBruhh/RASCII/assets/101834410/5122c5ba-8707-489e-a720-caf2e183b026" width=600>
-  </p>
-</div>
+![RASCII output of Ferris with the block charset](https://github.com/KoBruhh/RASCII/assets/101834410/5122c5ba-8707-489e-a720-caf2e183b026)
 
 ### Custom ASCII Charset
 
 You can use the `--charset` CLI option to provide a charset to use when generating some ASCII art.
 
-The value of this must option must go from opaque to transparent, like so:
+The value of this must option must go from transparent to opaque, like so:
 
 ```sh
 rascii --charset " ░▒▓█" --color ferris.png
 ```
 
-Note that the given charset is available as a builtin named `block`.
+Note that the given charset is available as a builtin named `block`, so the command here is the same as:
+
+```sh
+rascii --charset block --color ferris.png
+```
 
 ![RASCII output of Ferris with a custom charset](https://user-images.githubusercontent.com/101834410/204243768-4a15bb21-ba93-4979-bd4f-d8e8b1dc4112.png)
 
