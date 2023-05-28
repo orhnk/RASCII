@@ -13,9 +13,6 @@ edition = "2021"
 image = "0.24.6"
 termcolor = "1.2.0"
 
-[build]
-incremental = true
-
 [[bin]]
 name = "rascii"
 path = "src/main.rs"
