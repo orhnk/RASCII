@@ -33,8 +33,9 @@ impl ImageRenderer {
     }
 
     fn get_char_for_pixel(&self, pixel: &Rgba<u8>) -> char {
-        let as_grayscale = (pixel[0] as f64 * 0.299) + (pixel[1] as f64 * 0.587) + (pixel[2] as f64 * 0.114);
-        
+        let as_grayscale =
+            (pixel[0] as f64 * 0.299) + (pixel[1] as f64 * 0.587) + (pixel[2] as f64 * 0.114);
+
         // TODO: Use alpha channel to determine if pixel is transparent?
         let char_index =
             ((as_grayscale / 255.0) * (self.options.charset.len() as f64 - 1.0)) as usize;

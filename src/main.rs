@@ -1,4 +1,6 @@
+mod charsets;
 mod render;
+
 use clap::Parser;
 use render::Renderer;
 use termcolor::{
@@ -51,18 +53,9 @@ fn main() -> image::ImageResult<()> {
             (dyn_image.height() as f64 * args.width as f64 / dyn_image.width() as f64 / 2.0) as u32;
     }
 
-    for (name, charset) in [
-        ("block", "░▒▓█"),
-        ("default", " .`^\"\\,:;Il!i><~+_-?][}{1)(|\\\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B$@"),
-        ("emoji", "。，🧔👶🗣👥👤👀👁🦴🦷🫁🫀🧠👃🦻👂👅🦀👿🦀👄🤳💅🖖👆🙏🤝🦿🦾💪🤏👌🤘🤞👊🤚🤛🙌😾😿🙀😺👾👽👻💀👺🦀👹🤡💤😴🥸🥳🥶🥵🤮🤢🤕😭😓😯😰😨😱😮😩😫🙁😔😡🤬😠🙄😐😶🧐😛🤗🤐🤑😝🤩😋😊😉🤣😅😆"),
-        ("russian", "  ЯЮЭЬЫЪЩШЧЦХФУТСPПОНМЛКЙИЗЖЁЕДГВБА"),
-        ("slight", "   .`\"\\:I!>~_?[{)|\\\\YLpda*W8%@$"),
-    ] {
-        if args.charset == name {
-            args.charset = String::from(charset);
-            break;
-        }
-    }
+    args.charset = charsets::from_str(args.charset.as_str())
+        .unwrap_or(args.charset.as_str())
+        .to_string();
 
     let options = render::ResourceOptions {
         width: args.width,
