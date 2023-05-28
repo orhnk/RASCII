@@ -54,7 +54,7 @@ chmod +x install.sh
 
 ### Japanese Charset
 
-![RASCII output of gigachad with the Japanese charset.](https://user-images.githubusercontent.com/101834410/204259580-46ea59ae-e7d1-4f96-b14f-1d90f2376f6f.png)
+![RASCII output of chad with the Japanese charset.](https://github.com/KoBruhh/RASCII/assets/101834410/c038edc9-cab3-4270-95df-0269203763fd)
 
 ### Emoji Charset
 
@@ -65,13 +65,23 @@ chmod +x install.sh
 
 ### Chinese Charset
 
-![RASCII output with the Chinese charset.](https://user-images.githubusercontent.com/101834410/204243902-4de1e10a-4e86-455d-8817-09b57ca2bc40.png)
+![RASCII output with the Chinese charset.](https://github.com/KoBruhh/RASCII/assets/101834410/357c084f-ea93-40f9-baa8-16e329b95a51)
 
 ### Block Charset
 
-![RASCII output of trollpepe with the block charset](https://user-images.githubusercontent.com/101834410/204243571-f6697b6f-f27d-4da1-a75c-c2c51723978d.png)
+<div align="center">
+  <p style="margin-bottom: 0 !important;">
+    <img alt="RASCII output of TrollPepe with the block charset" src="https://github.com/KoBruhh/RASCII/assets/101834410/3ac7e920-7ab4-441d-886e-2028b108578d" width=600>
+  </p>
+</div>
 
-![RASCII output of trollpepe with the block charset](https://user-images.githubusercontent.com/101834410/204244536-f1c3674a-2c96-4d00-a310-c5cff63d3348.png)
+
+<div align="center">
+  <p style="margin-bottom: 0 !important;">
+    <img alt="RASCII output of Ferris with the block charset" src="https://github.com/KoBruhh/RASCII/assets/101834410/5122c5ba-8707-489e-a720-caf2e183b026" width=600>
+  </p>
+</div>
+
 
 ### Custom ASCII Charset
 
