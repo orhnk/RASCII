@@ -1,3 +1,6 @@
+[![Crate Status](https://img.shields.io/crates/v/rascii_art.svg)](https://crates.io/crates/rascii_art)
+[![Docs Status](https://docs.rs/rascii_art/badge.svg)](https://docs.rs/crate/rascii_art/)
+
 <div align="center">
   <p style="margin-bottom: 0 !important;">
     <img alt="RASCII Logo" src="https://user-images.githubusercontent.com/101834410/204127025-b98aaf39-778b-468b-8f41-36fd858708e8.png" width=600>
