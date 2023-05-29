@@ -98,6 +98,8 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
             write!(writer, "{}", last_color.suffix())?;
         }
 
+        writer.flush()?;
+
         Ok(())
     }
 }
