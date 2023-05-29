@@ -13,27 +13,39 @@ Arguments:
   <FILENAME>  Path to the image file.
 
 Options:
-  -w, --width <WIDTH>      Width of the output image. Defaults to 128 if width and height are not specified.
-  -H, --height <HEIGHT>    Height of the output image, if not specified, it will be calculated to keep the aspect ratio.
-  -c, --color              Whether to use colors in the output image.
-  -i, --invert             Inverts the weights of the characters. Useful for white backgrounds.
-  -C, --charset <CHARSET>  Characters used to render the image, from translucent to opaque. Built-in charsets: block, emoji, default, russian, slight. [default: default]
+  -w, --width <WIDTH>      Width of the output image. Defaults to 128 if width and height are not specified
+  -H, --height <HEIGHT>    Height of the output image, if not specified, it will be calculated to keep the aspect ratio
+  -c, --color              Whether to use colors in the output image
+  -i, --invert             Inverts the weights of the characters. Useful for white backgrounds
+  -C, --charset <CHARSET>  Characters used to render the image, from translucent to opaque. Built-in charsets: block, emoji, default, russian, slight [default: default]
   -h, --help               Print help
   -V, --version            Print version
 ```
 
 ## Features
 
-- Colored ASCII art generation using ANSI color codes.
-- Custom dimensions.
-- Custom characters: Supply your own charset to generate ASCII art!
-- Lots of pre-included charsets.
+- **Available as a crate:** RASCII has a very simple API allowing you to RASCII from your programs without using the system shell.
 
-## Installation
+- **Colored ASCII art generation**: RASCII uses ANSI color codes to generate colored ASCII art.
+  > **Note** Your terminal emulator has to support `truecolor`
+  > (don't worry, almost all modern terminal emulators do).
+
+- **Super efficient colored output**: RASCII never repeats the same ANSI color code if it is already active.
+  > This makes a huge difference in images with little alternating
+  > color, up to about 1800% reduction in output size. Woah!
+
+- **Custom dimensions**: RASCII allows you to give custom dimensions to the outputted ASCII art while keeping the aspect ratio (unless both dimensions are provided).
+
+- **Custom charsets:** RASCII allows you to use custom charsets to generate your ASCII art.
+  > **Note** The given charset must go from transparent to opaque.
+
+- **Lots of pre-included charsets.**
+
+## Installing The CLI
 
 ## Via Cargo
 
-> **Info** this is the recommended way of installing RASCII.
+> **Note** this is the recommended way of installing the RASCII CLI.
 
 ```sh
 cargo install rascii_art
@@ -47,6 +59,38 @@ cargo install rascii_art
 git clone https://github.com/KoBruhh/RASCII && cd RASCII
 chmod +x install.sh
 ./install.sh
+```
+
+## Using The Crate
+
+Instead of using the unreliable system shell to call RASCII,
+you can add the `rascii_art` crate to your project and use it in Rust!.
+
+To do so, run `cargo add rascii_art` to add RASCII to your Cargo project.
+
+Here is a code example:
+
+```rs
+use rascii_art::{
+    render_to,
+    RenderOptions,
+};
+
+fn main() {
+    let mut implements_io_write = String::new();
+
+    render_to(
+        "ferris.png",
+        &mut implements_io_write,
+        RenderOptions::new()
+            .width(100)
+            .colored(true)
+            .charset(&[".", ",", "-", "*", "£", "$", "#"]),
+    )
+    .unwrap();
+
+    println!("{implements_io_write}");
+}
 ```
 
 ## Showcase
