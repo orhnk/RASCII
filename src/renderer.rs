@@ -9,6 +9,7 @@ pub struct RenderOptions<'a> {
     pub charset: &'a str,
 }
 
+#[allow(dead_code)]
 impl RenderOptions<'_> {
     /// Create a new RenderOptions with default values.
     pub fn new() -> Self {
