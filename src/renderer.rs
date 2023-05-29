@@ -1,15 +1,15 @@
-use std::fmt;
+use std::io;
 
 #[derive(Clone, Debug)]
-pub struct RenderOptions {
+pub struct RenderOptions<'a> {
     pub width: Option<u32>,
     pub height: Option<u32>,
     pub colored: bool,
     pub invert: bool,
-    pub charset: &'static str,
+    pub charset: &'a str,
 }
 
-impl RenderOptions {
+impl RenderOptions<'_> {
     /// Create a new RenderOptions with default values.
     pub fn new() -> Self {
         Self::default()
@@ -48,7 +48,7 @@ impl RenderOptions {
     }
 }
 
-impl Default for RenderOptions {
+impl Default for RenderOptions<'_> {
     fn default() -> Self {
         Self {
             width: Some(128),
@@ -60,8 +60,8 @@ impl Default for RenderOptions {
     }
 }
 
-pub trait Renderer<Resource> {
-    fn new(resource: Resource, options: RenderOptions) -> Self;
+pub trait Renderer<'a, Resource> {
+    fn new(resource: Resource, options: RenderOptions<'a>) -> Self;
 
-    fn render(&self, writer: &mut impl fmt::Write) -> fmt::Result;
+    fn render(&self, writer: &mut impl io::Write) -> io::Result<()>;
 }

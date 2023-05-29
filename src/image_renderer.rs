@@ -1,4 +1,4 @@
-use std::fmt;
+use std::io;
 
 use ansi_term::Color;
 use image::{
@@ -11,13 +11,13 @@ use super::{
     Renderer,
 };
 
-pub struct ImageRenderer {
+pub struct ImageRenderer<'a> {
     resource: DynamicImage,
-    options: RenderOptions,
+    options: RenderOptions<'a>,
     last_color: Option<Color>,
 }
 
-impl ImageRenderer {
+impl ImageRenderer<'_> {
     fn get_char_for_pixel(&self, pixel: &Rgba<u8>) -> char {
         let as_grayscale =
             (pixel[0] as f64 * 0.299) + (pixel[1] as f64 * 0.587) + (pixel[2] as f64 * 0.114);
@@ -34,8 +34,8 @@ impl ImageRenderer {
     }
 }
 
-impl Renderer<DynamicImage> for ImageRenderer {
-    fn new(resource: DynamicImage, options: RenderOptions) -> Self {
+impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
+    fn new(resource: DynamicImage, options: RenderOptions<'a>) -> Self {
         Self {
             resource,
             options,
@@ -43,7 +43,7 @@ impl Renderer<DynamicImage> for ImageRenderer {
         }
     }
 
-    fn render(&self, writer: &mut impl fmt::Write) -> fmt::Result {
+    fn render(&self, writer: &mut impl io::Write) -> io::Result<()> {
         let (width, height) = (
             self.options.width.unwrap_or_else(|| {
                 (self

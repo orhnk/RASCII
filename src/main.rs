@@ -7,11 +7,15 @@ mod image_renderer;
 use image_renderer::ImageRenderer;
 
 mod renderer;
-use clap::Parser;
+#[rustfmt::skip]
 use renderer::{
     RenderOptions,
     Renderer,
 };
+
+use std::io;
+
+use clap::Parser;
 
 #[derive(Debug, Parser)]
 #[command(author, version, about)]
@@ -28,7 +32,12 @@ struct Args {
                 aspect ratio."
     )]
     height: Option<u32>,
-    #[arg(name = "color", short, long, help = "Whether to use colors in the output image.")]
+    #[arg(
+        name = "color",
+        short,
+        long,
+        help = "Whether to use colors in the output image."
+    )]
     colored: bool,
     #[arg(
         short,
@@ -53,7 +62,7 @@ fn main() -> image::ImageResult<()> {
 
     let charset = charsets::from_str(args.charset.as_str()).unwrap_or(args.charset.as_str());
 
-    ImageRenderer::new(
+    let renderer = ImageRenderer::new(
         dyn_image,
         RenderOptions {
             width: args.width,
@@ -62,8 +71,9 @@ fn main() -> image::ImageResult<()> {
             invert: args.invert,
             charset,
         },
-    )
-    .render(todo!())?;
+    );
+
+    renderer.render(&mut io::stdout())?;
 
     Ok(())
 }
