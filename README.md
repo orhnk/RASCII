@@ -126,11 +126,7 @@ The value of this must option must go from transparent to opaque, like so:
 rascii --charset " ░▒▓█" --color ferris.png
 ```
 
-Note that the given charset is available as a builtin named `block`, so the command here is the same as:
-
-```sh
-rascii --charset block --color ferris.png
-```
+Note that a chaset similar to the above charset is available as a builtin named `block`.
 
 ![RASCII output of Ferris with a custom charset](https://user-images.githubusercontent.com/101834410/204243768-4a15bb21-ba93-4979-bd4f-d8e8b1dc4112.png)
 
