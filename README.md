@@ -47,6 +47,7 @@ Options:
 
 > **Note** this is the recommended way of installing the RASCII CLI.
 
+> **Warning** you must have `~/.cargo/bin/` in `$PATH` to call `rascii`
 ```sh
 cargo install rascii_art
 ```
