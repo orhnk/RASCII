@@ -35,10 +35,7 @@ impl ImageRenderer<'_> {
 
 impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
     fn new(resource: DynamicImage, options: RenderOptions<'a>) -> Self {
-        Self {
-            resource,
-            options,
-        }
+        Self { resource, options }
     }
 
     fn render(&self, writer: &mut impl io::Write) -> io::Result<()> {
@@ -49,7 +46,9 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
                     .height
                     .expect("Either width or height must be set") as f64
                     * self.resource.width() as f64
-                    / self.resource.height() as f64)
+                    / self.resource.height() as f64
+                    // This is because the font is rarely square.
+                    * 2.0)
                     .ceil() as u32
             }),
             self.options.height.unwrap_or_else(|| {
@@ -60,7 +59,7 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
                     * self.resource.height() as f64
                     / self.resource.width() as f64
                     // This is because the font is rarely square.
-                    * 2.0)
+                    / 2.0)
                     .ceil() as u32
             }),
         );

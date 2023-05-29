@@ -12,12 +12,7 @@ use unicode_segmentation::UnicodeSegmentation;
 struct Args {
     #[arg(help = "Path to the image file.")]
     filename: String,
-    #[arg(
-        short,
-        long,
-        default_value = "128",
-        help = "Width of the output image."
-    )]
+    #[arg(short, long, help = "Width of the output image.")]
     width: Option<u32>,
     #[arg(
         short = 'H',
@@ -50,10 +45,14 @@ struct Args {
 }
 
 fn main() -> image::ImageResult<()> {
-    let args = Args::parse();
+    let mut args = Args::parse();
 
     let clusters = UnicodeSegmentation::graphemes(args.charset.as_str(), true).collect::<Vec<_>>();
     let charset = charsets::from_str(args.charset.as_str()).unwrap_or(clusters.as_slice());
+
+    if args.width.is_none() && args.height.is_none() {
+        args.width = Some(80);
+    }
 
     rascii_art::render_to(
         args.filename,

@@ -54,7 +54,7 @@ impl<'a> RenderOptions<'a> {
 impl Default for RenderOptions<'_> {
     fn default() -> Self {
         Self {
-            width: Some(128),
+            width: None,
             height: None,
             colored: false,
             invert: false,
