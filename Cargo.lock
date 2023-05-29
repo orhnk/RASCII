@@ -605,7 +605,7 @@ dependencies = [
 
 [[package]]
 name = "rascii_art"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "ansi_term",
  "clap",

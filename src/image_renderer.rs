@@ -14,7 +14,6 @@ use super::renderer::{
 pub struct ImageRenderer<'a> {
     resource: DynamicImage,
     options: RenderOptions<'a>,
-    last_color: Option<Color>,
 }
 
 impl ImageRenderer<'_> {
@@ -39,7 +38,6 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
         Self {
             resource,
             options,
-            last_color: None,
         }
     }
 
@@ -69,13 +67,14 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
 
         let image = self.resource.thumbnail_exact(width, height).to_rgba8();
 
+        let mut last_color: Option<Color> = None;
         let mut current_line = 0;
 
         for (_, line, pixel) in image.enumerate_pixels() {
             if current_line < line {
                 current_line = line;
 
-                if let Some(last_color) = self.last_color {
+                if let Some(last_color) = last_color {
                     write!(writer, "{}", last_color.suffix())?;
                 }
 
@@ -85,16 +84,18 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
             if self.options.colored {
                 let color = Color::RGB(pixel[0], pixel[1], pixel[2]);
 
-                if self.last_color != Some(color) {
+                if last_color != Some(color) {
                     write!(writer, "{}", color.prefix())?;
                 }
+
+                last_color = Some(color);
             }
 
             let char_for_pixel = self.get_char_for_pixel(pixel);
             write!(writer, "{char_for_pixel}")?;
         }
 
-        if let Some(last_color) = self.last_color {
+        if let Some(last_color) = last_color {
             write!(writer, "{}", last_color.suffix())?;
         }
 
