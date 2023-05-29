@@ -10,7 +10,7 @@ Advanced ASCII Art Generator
 Usage: rascii [OPTIONS] <FILENAME>
 
 Arguments:
-  <FILENAME>  Path to the image file.
+  <FILENAME>  Path to the image
 
 Options:
   -w, --width <WIDTH>      Width of the output image. Defaults to 128 if width and height are not specified
