@@ -75,6 +75,7 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
 
                 if let Some(last_color) = last_color {
                     write!(writer, "{}", last_color.suffix())?;
+                    last_color = None;
                 }
 
                 writeln!(writer)?;
