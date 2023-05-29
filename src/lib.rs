@@ -1,2 +1,4 @@
 pub mod charsets;
-pub mod render;
+
+mod render;
+pub use render::*;

@@ -1,12 +1,10 @@
 mod charsets;
+
 mod render;
 
+use render::*;
+
 use clap::Parser;
-use render::Renderer;
-use termcolor::{
-    BufferWriter,
-    ColorChoice,
-};
 
 #[derive(Debug, Parser)]
 #[command(author, version, about)]
@@ -14,7 +12,7 @@ struct Args {
     #[arg(help = "Path to the image file.")]
     filename: String,
     #[arg(short, long, default_value = "128", help = "Width of the output image")]
-    width: u32,
+    width: Option<u32>,
     #[arg(
         short = 'H',
         long,
@@ -22,7 +20,7 @@ struct Args {
         help = "Height of the output image, if not specified, it will be calculated to keep the \
                 aspect ratio."
     )]
-    height: u32,
+    height: Option<u32>,
     #[arg(short, long, help = "Whether to use colors in the output image.")]
     color: bool,
     #[arg(
@@ -42,31 +40,22 @@ struct Args {
 }
 
 fn main() -> image::ImageResult<()> {
-    let mut args = Args::parse();
+    let args = Args::parse();
 
     let dyn_image = image::open(args.filename)?;
 
-    if args.height == 0 {
-        // The 2.0 multiplier is because terminals often have a 1 to 2 aspect ratio on
-        // the width and height.
-        args.height =
-            (dyn_image.height() as f64 * args.width as f64 / dyn_image.width() as f64 / 2.0) as u32;
-    }
+    let charset = charsets::from_str(args.charset.as_str())
+        .unwrap_or(args.charset.as_str());
 
-    args.charset = charsets::from_str(args.charset.as_str())
-        .unwrap_or(args.charset.as_str())
-        .to_string();
-
-    let options = render::ResourceOptions {
+    let options = render::RenderOptions {
         width: args.width,
         height: args.height,
-        colorful: args.color,
+        colored: args.color,
         invert: args.invert,
-        charset: args.charset.chars().collect(),
+        charset: charset,
     };
 
-    let buffer_writer = BufferWriter::stdout(ColorChoice::Always);
-    render::Image::new(dyn_image, options, buffer_writer).render()?;
+    ImageRenderer::new(dyn_image, options).render(todo!())?;
 
     Ok(())
 }
