@@ -1,10 +1,17 @@
 mod charsets;
 
-mod render;
+mod gif_renderer;
+// use gif_renderer::GifRenderer;
 
-use render::*;
+mod image_renderer;
+use image_renderer::ImageRenderer;
 
+mod renderer;
 use clap::Parser;
+use renderer::{
+    RenderOptions,
+    Renderer,
+};
 
 #[derive(Debug, Parser)]
 #[command(author, version, about)]
@@ -21,8 +28,8 @@ struct Args {
                 aspect ratio."
     )]
     height: Option<u32>,
-    #[arg(short, long, help = "Whether to use colors in the output image.")]
-    color: bool,
+    #[arg(name = "color", short, long, help = "Whether to use colors in the output image.")]
+    colored: bool,
     #[arg(
         short,
         long,
@@ -44,18 +51,19 @@ fn main() -> image::ImageResult<()> {
 
     let dyn_image = image::open(args.filename)?;
 
-    let charset = charsets::from_str(args.charset.as_str())
-        .unwrap_or(args.charset.as_str());
+    let charset = charsets::from_str(args.charset.as_str()).unwrap_or(args.charset.as_str());
 
-    let options = render::RenderOptions {
-        width: args.width,
-        height: args.height,
-        colored: args.color,
-        invert: args.invert,
-        charset: charset,
-    };
-
-    ImageRenderer::new(dyn_image, options).render(todo!())?;
+    ImageRenderer::new(
+        dyn_image,
+        RenderOptions {
+            width: args.width,
+            height: args.height,
+            colored: args.colored,
+            invert: args.invert,
+            charset,
+        },
+    )
+    .render(todo!())?;
 
     Ok(())
 }

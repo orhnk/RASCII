@@ -1,10 +1,4 @@
-mod gif;
-mod image;
-
 use std::fmt;
-
-pub use self::image::ImageRenderer;
-// TODO: pub use self::gif::GifRenderer;
 
 #[derive(Clone, Debug)]
 pub struct RenderOptions {
