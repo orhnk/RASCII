@@ -10,40 +10,41 @@ use unicode_segmentation::UnicodeSegmentation;
 #[derive(Debug, Parser)]
 #[command(author, version, about)]
 struct Args {
-    #[arg(help = "Path to the image file.")]
+    #[arg(help = "Path to the image 
+")]
     filename: String,
     #[arg(
         short,
         long,
-        help = "Width of the output image. Defaults to 128 if width and height are not specified."
+        help = "Width of the output image. Defaults to 128 if width and height are not specified"
     )]
     width: Option<u32>,
     #[arg(
         short = 'H',
         long,
         help = "Height of the output image, if not specified, it will be calculated to keep the \
-                aspect ratio."
+                aspect ratio"
     )]
     height: Option<u32>,
     #[arg(
         name = "color",
         short,
         long,
-        help = "Whether to use colors in the output image."
+        help = "Whether to use colors in the output image"
     )]
     colored: bool,
     #[arg(
         short,
         long,
-        help = "Inverts the weights of the characters. Useful for white backgrounds."
+        help = "Inverts the weights of the characters. Useful for white backgrounds"
     )]
     invert: bool,
     #[arg(
         short = 'C',
         long,
         default_value = "default",
-        help = "Characters used to render the image, from translucent to opaque. Built-in \
-                charsets: block, emoji, default, russian, slight."
+        help = "Characters used to render the image, from transparent to opaque. Built-in \
+                charsets: block, emoji, default, russian, slight"
     )]
     charset: String,
 }
