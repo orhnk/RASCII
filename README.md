@@ -13,8 +13,8 @@ Arguments:
   <FILENAME>  Path to the image file.
 
 Options:
-  -w, --width <WIDTH>      Width of the output image [default: 128]
-  -H, --height <HEIGHT>    Height of the output image, if not specified, it will be calculated to keep the aspect ratio. [default: 0]
+  -w, --width <WIDTH>      Width of the output image. Defaults to 128 if width and height are not specified.
+  -H, --height <HEIGHT>    Height of the output image, if not specified, it will be calculated to keep the aspect ratio.
   -c, --color              Whether to use colors in the output image.
   -i, --invert             Inverts the weights of the characters. Useful for white backgrounds.
   -C, --charset <CHARSET>  Characters used to render the image, from translucent to opaque. Built-in charsets: block, emoji, default, russian, slight. [default: default]

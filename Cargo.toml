@@ -1,6 +1,6 @@
 [package]
 name = "rascii_art"
-version = "0.3.2"
+version = "0.3.3"
 authors = [ "KoBruhh", "RGBCube" ]
 description = "Advanced ASCII Art Generator"
 repository = "https://github.com/KoBruhh/RASCII"

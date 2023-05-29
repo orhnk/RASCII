@@ -12,7 +12,11 @@ use unicode_segmentation::UnicodeSegmentation;
 struct Args {
     #[arg(help = "Path to the image file.")]
     filename: String,
-    #[arg(short, long, help = "Width of the output image.")]
+    #[arg(
+        short,
+        long,
+        help = "Width of the output image. Defaults to 128 if width and height are not specified."
+    )]
     width: Option<u32>,
     #[arg(
         short = 'H',
