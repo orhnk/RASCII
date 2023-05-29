@@ -27,7 +27,6 @@ struct Args {
     #[arg(
         short = 'H',
         long,
-        default_value = "0",
         help = "Height of the output image, if not specified, it will be calculated to keep the \
                 aspect ratio."
     )]
