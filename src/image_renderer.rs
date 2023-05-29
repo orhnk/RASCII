@@ -6,7 +6,7 @@ use image::{
     Rgba,
 };
 
-use super::{
+use super::renderer::{
     RenderOptions,
     Renderer,
 };

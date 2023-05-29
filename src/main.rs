@@ -1,21 +1,10 @@
-mod charsets;
-
-mod gif_renderer;
-// use gif_renderer::GifRenderer;
-
-mod image_renderer;
-use image_renderer::ImageRenderer;
-
-mod renderer;
-#[rustfmt::skip]
-use renderer::{
-    RenderOptions,
-    Renderer,
-};
-
 use std::io;
 
 use clap::Parser;
+use rascii_art::{
+    charsets,
+    RenderOptions,
+};
 use unicode_segmentation::UnicodeSegmentation;
 
 #[derive(Debug, Parser)]
@@ -63,13 +52,12 @@ struct Args {
 fn main() -> image::ImageResult<()> {
     let args = Args::parse();
 
-    let dyn_image = image::open(args.filename)?;
-
     let clusters = UnicodeSegmentation::graphemes(args.charset.as_str(), true).collect::<Vec<_>>();
     let charset = charsets::from_str(args.charset.as_str()).unwrap_or(clusters.as_slice());
 
-    let renderer = ImageRenderer::new(
-        dyn_image,
+    rascii_art::render_to(
+        args.filename,
+        &mut io::stdout(),
         RenderOptions {
             width: args.width,
             height: args.height,
@@ -77,9 +65,7 @@ fn main() -> image::ImageResult<()> {
             invert: args.invert,
             charset,
         },
-    );
-
-    renderer.render(&mut io::stdout())?;
+    )?;
 
     Ok(())
 }
