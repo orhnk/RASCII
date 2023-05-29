@@ -22,7 +22,12 @@ use clap::Parser;
 struct Args {
     #[arg(help = "Path to the image file.")]
     filename: String,
-    #[arg(short, long, default_value = "128", help = "Width of the output image")]
+    #[arg(
+        short,
+        long,
+        default_value = "128",
+        help = "Width of the output image."
+    )]
     width: Option<u32>,
     #[arg(
         short = 'H',
