@@ -16,6 +16,7 @@ use renderer::{
 use std::io;
 
 use clap::Parser;
+use unicode_segmentation::UnicodeSegmentation;
 
 #[derive(Debug, Parser)]
 #[command(author, version, about)]
@@ -64,7 +65,8 @@ fn main() -> image::ImageResult<()> {
 
     let dyn_image = image::open(args.filename)?;
 
-    let charset = charsets::from_str(args.charset.as_str()).unwrap_or(args.charset.as_str());
+    let clusters = UnicodeSegmentation::graphemes(args.charset.as_str(), true).collect::<Vec<_>>();
+    let charset = charsets::from_str(args.charset.as_str()).unwrap_or(clusters.as_slice());
 
     let renderer = ImageRenderer::new(
         dyn_image,

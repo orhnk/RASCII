@@ -1,16 +1,18 @@
 use std::io;
 
+use crate::charsets;
+
 #[derive(Clone, Debug)]
 pub struct RenderOptions<'a> {
     pub width: Option<u32>,
     pub height: Option<u32>,
     pub colored: bool,
     pub invert: bool,
-    pub charset: &'a str,
+    pub charset: &'a [&'a str],
 }
 
 #[allow(dead_code)]
-impl RenderOptions<'_> {
+impl<'a> RenderOptions<'a> {
     /// Create a new RenderOptions with default values.
     pub fn new() -> Self {
         Self::default()
@@ -43,7 +45,7 @@ impl RenderOptions<'_> {
     }
 
     /// Set the charset to use for the rendered image.
-    pub fn charset(mut self, charset: &'static str) -> Self {
+    pub fn charset(mut self, charset: &'a [&'a str]) -> Self {
         self.charset = charset;
         self
     }
@@ -56,7 +58,7 @@ impl Default for RenderOptions<'_> {
             height: None,
             colored: false,
             invert: false,
-            charset: crate::charsets::DEFAULT,
+            charset: charsets::DEFAULT,
         }
     }
 }

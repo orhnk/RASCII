@@ -18,7 +18,7 @@ pub struct ImageRenderer<'a> {
 }
 
 impl ImageRenderer<'_> {
-    fn get_char_for_pixel(&self, pixel: &Rgba<u8>) -> char {
+    fn get_char_for_pixel(&self, pixel: &Rgba<u8>) -> &str {
         let as_grayscale =
             (pixel[0] as f64 * 0.299) + (pixel[1] as f64 * 0.587) + (pixel[2] as f64 * 0.114);
 
@@ -26,11 +26,11 @@ impl ImageRenderer<'_> {
         let char_index =
             ((as_grayscale / 255.0) * (self.options.charset.len() as f64 - 1.0)) as usize;
 
-        self.options.charset.as_bytes()[if self.options.invert {
+        self.options.charset[if self.options.invert {
             self.options.charset.len() - 1 - char_index
         } else {
             char_index
-        }] as char
+        }]
     }
 }
 
