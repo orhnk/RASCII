@@ -10,8 +10,7 @@ use unicode_segmentation::UnicodeSegmentation;
 #[derive(Debug, Parser)]
 #[command(author, version, about)]
 struct Args {
-    #[arg(help = "Path to the image 
-")]
+    #[arg(help = "Path to the image")]
     filename: String,
     #[arg(
         short,
