@@ -21,6 +21,9 @@ pub const SLIGHT: &[&str] = &[
     " ", " ", ".", "`", "\"", "\\", ":", "I", "!", ">", "~", "_", "?", "[", "{", "|", ")", "(",
     "\\", "\\\\", "/", "Y", "L", "p", "d", "a", "*", "W", "8", "%", "@", "$",
 ];
+pub const CHINESE: &[&str] = &[
+    " ", "一", "二", "十", "人", "丁", "口", "王", "日", "木", "金", "華", "爱", "黑", "墨", "龍", "龘"
+];
 
 pub fn from_str(s: &str) -> Option<&[&str]> {
     match s {
@@ -29,6 +32,7 @@ pub fn from_str(s: &str) -> Option<&[&str]> {
         "emoji" => Some(EMOJI),
         "russian" => Some(RUSSIAN),
         "slight" => Some(SLIGHT),
+        "chinese" => Some(CHINESE),
         _ => None,
     }
 }

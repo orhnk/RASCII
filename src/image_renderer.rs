@@ -73,8 +73,8 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
             if current_line < line {
                 current_line = line;
 
-                if let Some(last_color) = last_color {
-                    write!(writer, "{}", last_color.suffix())?;
+                if let Some(my_last_color) = last_color {
+                    write!(writer, "{}", my_last_color.suffix())?;
                     last_color = None;
                 }
 
