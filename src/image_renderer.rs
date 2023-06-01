@@ -18,11 +18,10 @@ pub struct ImageRenderer<'a> {
 
 impl ImageRenderer<'_> {
     fn get_char_for_pixel(&self, pixel: &Rgba<u8>, maximum: f64) -> &str {
-        let as_grayscale = self.get_grayscale(pixel) / maximum ;
+        let as_grayscale = self.get_grayscale(pixel) / maximum;
 
         // TODO: Use alpha channel to determine if pixel is transparent?
-        let char_index =
-            (as_grayscale  * (self.options.charset.len() as f64 - 1.0)) as usize;
+        let char_index = (as_grayscale * (self.options.charset.len() as f64 - 1.0)) as usize;
 
         self.options.charset[if self.options.invert {
             self.options.charset.len() - 1 - char_index
@@ -30,11 +29,11 @@ impl ImageRenderer<'_> {
             char_index
         }]
     }
-    fn get_grayscale(&self, pixel: &Rgba<u8>) -> f64 {
-        ((pixel[0] as f64 * 0.299) + (pixel[1] as f64 * 0.587) + (pixel[2] as f64 * 0.114))/255.0
-    }    
-}
 
+    fn get_grayscale(&self, pixel: &Rgba<u8>) -> f64 {
+        ((pixel[0] as f64 * 0.299) + (pixel[1] as f64 * 0.587) + (pixel[2] as f64 * 0.114)) / 255.0
+    }
+}
 
 impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
     fn new(resource: DynamicImage, options: RenderOptions<'a>) -> Self {
@@ -71,7 +70,9 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
 
         let mut last_color: Option<Color> = None;
         let mut current_line = 0;
-        let maximum = image.pixels().fold( 0.0, |acc, pixel| self.get_grayscale(pixel).max(acc));
+        let maximum = image
+            .pixels()
+            .fold(0.0, |acc, pixel| self.get_grayscale(pixel).max(acc));
         for (_, line, pixel) in image.enumerate_pixels() {
             if current_line < line {
                 current_line = line;
