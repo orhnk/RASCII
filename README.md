@@ -146,3 +146,7 @@ Note that a chaset similar to the above charset is available as a builtin named 
 ![felixonmars](https://github.com/KoBruhh/RASCII/assets/101834410/66914a48-a5c5-4619-a46d-b99c77b3cd77)
 ![fnordpig](https://github.com/fnordpig/RASCII/assets/1621189/5b3225f3-ae83-4ed3-a3fb-3d88de18f82e)
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=UTFeight/Rascii&type=Date)](https://star-history.com/#UTFeight/Rascii&Date)
+
