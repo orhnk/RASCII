@@ -28,10 +28,10 @@ Options:
 
 ## Features
 
-- **Available as a crate:** RASCII has a very simple API allowing you to RASCII from your programs without using the system shell.
+- **Available as a crate:** RASCII has a very simple API allowing you to use RASCII from your programs without using the system shell.
 
 - **Colored ASCII art generation**: RASCII uses ANSI color codes to generate colored ASCII art.
-  > **Note** Your terminal emulator has to support `truecolor`
+  > **Note**: Your terminal emulator has to support `truecolor`
   > (don't worry, almost all modern terminal emulators do).
 
 - **Super efficient colored output**: RASCII never repeats the same ANSI color code if it is already active.
@@ -41,7 +41,7 @@ Options:
 - **Custom dimensions**: RASCII allows you to give custom dimensions to the outputted ASCII art while keeping the aspect ratio (unless both dimensions are provided).
 
 - **Custom charsets:** RASCII allows you to use custom charsets to generate your ASCII art.
-  > **Note** The given charset must go from transparent to opaque.
+  > **Note**: The given charset must go from transparent to opaque.
 
 - **Lots of pre-included charsets.**
 
@@ -49,18 +49,19 @@ Options:
 
 ## Via Cargo
 
-> **Note** this is the recommended way of installing the RASCII CLI.
+> **Note**: This is the recommended way of installing the RASCII CLI.
 
-> **Warning** you must have `~/.cargo/bin/` in `$PATH` to call `rascii`
+> **Warning**: You must have `~/.cargo/bin/` in your `PATH` to run `rascii` directly.
+
 ```sh
 cargo install rascii_art
 ```
 
 ## Manually
 
-> **Warning** this installation method is discouraged and only works for GNU/Linux or any other POSIX compatible systems!
+> **Warning**: this installation method is discouraged and only works for GNU/Linux or any other POSIX compatible systems!
 
-```
+```sh
 git clone https://github.com/KoBruhh/RASCII && cd RASCII
 chmod +x install.sh
 ./install.sh
@@ -69,7 +70,7 @@ chmod +x install.sh
 ## Using The Crate
 
 Instead of using the unreliable system shell to call RASCII,
-you can add the `rascii_art` crate to your project and use it in Rust!.
+you can add the `rascii_art` crate to your project and use it in Rust!
 
 To do so, run `cargo add rascii_art` to add RASCII to your Cargo project.
 
@@ -102,18 +103,18 @@ fn main() {
 
 ### Japanese Charset
 
-![RASCII output of chad with the Japanese charset.](https://github.com/KoBruhh/RASCII/assets/101834410/c038edc9-cab3-4270-95df-0269203763fd)
+![RASCII output of chad with the Japanese charset](https://github.com/KoBruhh/RASCII/assets/101834410/c038edc9-cab3-4270-95df-0269203763fd)
 
 ### Emoji Charset
 
-> **Note** The emoji charset does not guarantee your outputs color will match the color of your image,
+> **Note**: The emoji charset does not guarantee your outputs color will match the color of your image,
 > this is just a coincidence that happened with Ferris.
 
-![RASCII output of ferris with the emoji charset.](https://user-images.githubusercontent.com/101834410/204243964-f4cfdf8d-10b9-4a2c-8d3c-41182320c789.png)
+![RASCII output of ferris with the emoji charset](https://user-images.githubusercontent.com/101834410/204243964-f4cfdf8d-10b9-4a2c-8d3c-41182320c789.png)
 
 ### Chinese Charset
 
-![RASCII output with the Chinese charset.](https://github.com/KoBruhh/RASCII/assets/101834410/357c084f-ea93-40f9-baa8-16e329b95a51)
+![RASCII output with the Chinese charset](https://github.com/KoBruhh/RASCII/assets/101834410/357c084f-ea93-40f9-baa8-16e329b95a51)
 
 ### Block Charset
 
@@ -123,7 +124,7 @@ fn main() {
 
 ### Custom ASCII Charset
 
-You can use the `--charset` CLI option to provide a charset to use when generating some ASCII art.
+You can use the `--charset` (or `-C`) CLI option to provide a custom charset to use when generating some ASCII art.
 
 The value of this must option must go from transparent to opaque, like so:
 
@@ -131,7 +132,7 @@ The value of this must option must go from transparent to opaque, like so:
 rascii --charset " ░▒▓█" --color ferris.png
 ```
 
-Note that a chaset similar to the above charset is available as a builtin named `block`.
+Note that a charset similar to the above charset is available as a builtin named `block`.
 
 ![RASCII output of Ferris with a custom charset](https://user-images.githubusercontent.com/101834410/204243768-4a15bb21-ba93-4979-bd4f-d8e8b1dc4112.png)
 
@@ -149,4 +150,3 @@ Note that a chaset similar to the above charset is available as a builtin named 
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=UTFeight/Rascii&type=Date)](https://star-history.com/#UTFeight/Rascii&Date)
-
