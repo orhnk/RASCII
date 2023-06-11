@@ -1,15 +1,9 @@
 use std::io;
 
 use ansi_term::Color;
-use image::{
-    DynamicImage,
-    Rgba,
-};
+use image::{DynamicImage, Rgba};
 
-use super::renderer::{
-    RenderOptions,
-    Renderer,
-};
+use super::renderer::{RenderOptions, Renderer};
 
 pub struct ImageRenderer<'a> {
     resource: DynamicImage,

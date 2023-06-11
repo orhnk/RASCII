@@ -1,10 +1,7 @@
 use std::io;
 
 use clap::Parser;
-use rascii_art::{
-    charsets,
-    RenderOptions,
-};
+use rascii_art::{charsets, RenderOptions};
 use unicode_segmentation::UnicodeSegmentation;
 
 #[derive(Debug, Parser)]
