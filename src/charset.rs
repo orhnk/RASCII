@@ -17,37 +17,33 @@ pub enum Charset<'a> {
     Custom(&'a str),
 }
 
+/// `Charset::new("block")` -> `Charset::Custom("block")`
 impl<'a> Charset<'a> {
     #[allow(dead_code)]
     pub fn new(s: &'a str) -> Self {
         Self::Custom(s)
-    }
-
-    #[allow(dead_code)]
-    pub fn from_str(s: &'a str) -> Self {
-        match s {
-            "block" => Charset::Block,
-            "chinese" => Charset::Chinese,
-            "default" => Charset::Default,
-            "emoji" => Charset::Emoji,
-            "russian" => Charset::Russian,
-            "slight" => Charset::Slight,
-            _ => Charset::Custom(s),
-        }
     }
 }
 
 /// `"block".into()` -> `Charset::Block`
 impl<'a> From<&'a str> for Charset<'a> {
     fn from(s: &'a str) -> Self {
-        Self::from_str(s)
+        match s {
+            "block" => Self::Block,
+            "chinese" => Self::Chinese,
+            "default" => Self::Default,
+            "emoji" => Self::Emoji,
+            "russian" => Self::Russian,
+            "slight" => Self::Slight,
+            _ => Self::Custom(s),
+        }
     }
 }
 
 /// `Charset::Block.into()` -> `" ░▒▓█"`
-impl<'a> Into<&'a str> for &Charset<'a> {
-    fn into(self) -> &'a str {
-        match self {
+impl<'a> From<&Charset<'a>> for &'a str {
+    fn from(val: &Charset<'a>) -> Self {
+        match val {
             Charset::Block => BLOCK,
             Charset::Chinese => CHINESE,
             Charset::Default => DEFAULT,
