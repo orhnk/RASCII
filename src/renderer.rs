@@ -63,8 +63,8 @@ impl Default for RenderOptions<'_> {
     }
 }
 
-pub trait Renderer<'a, Resource> {
-    fn new(resource: Resource, options: RenderOptions<'a>) -> Self;
+pub trait Renderer<'a, R> {
+    fn new(resource: R, options: RenderOptions<'a>) -> Self;
 
     fn render(&self, writer: &mut impl io::Write) -> io::Result<()>;
 }
