@@ -62,16 +62,6 @@ impl Default for RenderOptions<'_> {
     }
 }
 
-impl Renderer<'static, i32> for i32 {
-    fn new(resource: i32, options: RenderOptions) -> Self {
-        resource
-    }
-
-    fn render(&self, writer: &mut impl io::Write) -> io::Result<()> {
-        Ok(())
-    }
-}
-
 pub trait Renderer<'a, T> {
     fn new(resource: T, options: RenderOptions<'a>) -> Self;
 
