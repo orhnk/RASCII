@@ -1,24 +1,35 @@
 use std::io;
 
 use ansi_term::Color;
-use image::{DynamicImage, Rgba};
+use image::{
+    DynamicImage,
+    Rgba,
+};
+use unicode_segmentation::UnicodeSegmentation;
 
-use super::renderer::{RenderOptions, Renderer};
+use super::renderer::{
+    RenderOptions,
+    Renderer,
+};
+use crate::Charset;
 
 pub struct ImageRenderer<'a> {
     resource: DynamicImage,
     options: RenderOptions<'a>,
 }
 
-impl ImageRenderer<'_> {
+impl<'a> ImageRenderer<'a> {
     fn get_char_for_pixel(&self, pixel: &Rgba<u8>, maximum: f64) -> &str {
         let as_grayscale = self.get_grayscale(pixel) / maximum;
+        let charset = <&Charset<'a> as Into<&'a str>>::into(&self.options.charset)
+            .graphemes(true)
+            .collect::<Vec<&str>>();
 
         // TODO: Use alpha channel to determine if pixel is transparent?
-        let char_index = (as_grayscale * (self.options.charset.len() as f64 - 1.0)) as usize;
+        let char_index = (as_grayscale * (charset.len() as f64 - 1.0)) as usize;
 
-        self.options.charset[if self.options.invert {
-            self.options.charset.len() - 1 - char_index
+        charset[if self.options.invert {
+            charset.len() - 1 - char_index
         } else {
             char_index
         }]

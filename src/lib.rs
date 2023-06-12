@@ -1,14 +1,17 @@
-pub mod charsets;
-
+mod charset;
 mod gif_renderer;
 // pub use gif_renderer::GifRenderer;
-
 mod image_renderer;
-use std::{io, path::Path};
-
+use image_renderer::ImageRenderer;
 mod renderer;
-pub use renderer::RenderOptions;
 use renderer::Renderer;
+use std::{
+    io,
+    path::Path,
+};
+
+pub use charset::Charset;
+pub use renderer::RenderOptions;
 
 pub fn render_to<P: AsRef<Path>>(
     path: P,
@@ -23,7 +26,7 @@ pub fn render_image_to(
     to: &mut impl io::Write,
     options: RenderOptions<'_>,
 ) -> image::ImageResult<()> {
-    let renderer = image_renderer::ImageRenderer::new(image, options);
+    let renderer = ImageRenderer::new(image, options);
     renderer.render(to)?;
     Ok(())
 }

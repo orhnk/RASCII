@@ -1,8 +1,10 @@
 use std::io;
 
 use clap::Parser;
-use rascii_art::{charsets, RenderOptions};
-use unicode_segmentation::UnicodeSegmentation;
+use rascii_art::{
+    Charset,
+    RenderOptions,
+};
 
 #[derive(Debug, Parser)]
 #[command(author, version, about)]
@@ -48,8 +50,7 @@ struct Args {
 fn main() -> image::ImageResult<()> {
     let mut args = Args::parse();
 
-    let clusters = UnicodeSegmentation::graphemes(args.charset.as_str(), true).collect::<Vec<_>>();
-    let charset = charsets::from_str(args.charset.as_str()).unwrap_or(clusters.as_slice());
+    let charset: Charset = args.charset.as_str().into();
 
     if args.width.is_none() && args.height.is_none() {
         args.width = Some(80);
