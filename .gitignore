@@ -1,7 +1,8 @@
 *
 
 !src/
-!src/render/
+!src/ai/
+!src/ai/craiyon.rs
 
 !.gitignore
 !Cargo.lock
