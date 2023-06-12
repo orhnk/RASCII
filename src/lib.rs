@@ -5,10 +5,7 @@ mod image_renderer;
 use image_renderer::ImageRenderer;
 mod renderer;
 use renderer::Renderer;
-use std::{
-    io,
-    path::Path,
-};
+use std::{io, path::Path};
 
 pub use charset::Charset;
 pub use renderer::RenderOptions;

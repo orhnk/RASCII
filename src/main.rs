@@ -1,10 +1,7 @@
 use std::io;
 
 use clap::Parser;
-use rascii_art::{
-    Charset,
-    RenderOptions,
-};
+use rascii_art::{Charset, RenderOptions};
 
 #[derive(Debug, Parser)]
 #[command(author, version, about)]

@@ -1,5 +1,5 @@
-use std::io;
 use crate::Charset;
+use std::io;
 
 #[derive(Clone, Debug)]
 pub struct RenderOptions<'a> {

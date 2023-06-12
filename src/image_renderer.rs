@@ -1,16 +1,10 @@
 use std::io;
 
 use ansi_term::Color;
-use image::{
-    DynamicImage,
-    Rgba,
-};
+use image::{DynamicImage, Rgba};
 use unicode_segmentation::UnicodeSegmentation;
 
-use super::renderer::{
-    RenderOptions,
-    Renderer,
-};
+use super::renderer::{RenderOptions, Renderer};
 use crate::Charset;
 
 pub struct ImageRenderer<'a> {
