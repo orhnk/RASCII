@@ -1,8 +1,8 @@
 *
 
 !src/
-!src/ai/
-!src/ai/craiyon.rs
+!src/craiyon/
+!src/craiyon/craiyon.rs
 
 !.gitignore
 !Cargo.lock

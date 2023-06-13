@@ -10,8 +10,15 @@ edition = "2021"
 
 [dependencies]
 ansi_term = "0.12.1"
+base64 = "0.21.2"
 clap = { version = "4.3.0", features = [ "derive" ] }
+html-escape = "0.2.13"
 image = "0.24.6"
+lazy_static = "1.4.0"
+reqwest = "0.11.18"
+serde_json = "1.0.96"
+spinners = "4.1.0"
+tokio = { version = "1.28.2", features = ["full"] }
 unicode-segmentation = "1.10.1"
 
 [[bin]]

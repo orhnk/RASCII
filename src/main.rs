@@ -1,9 +1,16 @@
+mod craiyon;
 use std::io;
 
+use ansi_term::Color::*;
 use clap::Parser;
+use image::DynamicImage;
 use rascii_art::{
     charsets,
     RenderOptions,
+};
+use spinners::{
+    Spinner,
+    Spinners,
 };
 use unicode_segmentation::UnicodeSegmentation;
 
@@ -38,6 +45,8 @@ struct Args {
         help = "Inverts the weights of the characters. Useful for white backgrounds"
     )]
     invert: bool,
+    #[arg(short, long, help = "Use AI to generate ascii art")]
+    query: Option<String>,
     #[arg(
         short = 'C',
         long,
@@ -48,7 +57,16 @@ struct Args {
     charset: String,
 }
 
-fn main() -> image::ImageResult<()> {
+fn save_images(images: Vec<DynamicImage>, name: &str) -> image::ImageResult<()> {
+    for (i, image) in images.iter().enumerate() {
+        let filename = format!("{}-{}.png", name, i);
+        image.save(filename)?;
+    }
+    Ok(())
+}
+
+#[tokio::main]
+async fn main() -> image::ImageResult<()> {
     let mut args = Args::parse();
 
     let clusters = UnicodeSegmentation::graphemes(args.charset.as_str(), true).collect::<Vec<_>>();
@@ -56,6 +74,14 @@ fn main() -> image::ImageResult<()> {
 
     if args.width.is_none() && args.height.is_none() {
         args.width = Some(80);
+    }
+
+    if let Some(query) = args.query {
+        println!("Generating...");
+        let mut sp = Spinner::new(Spinners::Arc, query.clone());
+        // let images = craiyon::generate(&query);
+        // save_images(images.await.expect("Failed to construct images"), &query).expect("Couldn't save images");
+        sp.stop_with_symbol("\x1b[32m✔\x1b[0m");
     }
 
     rascii_art::render_to(
