@@ -140,7 +140,7 @@ impl<'a> Model<'a> {
     }
 
     #[allow(dead_code)]
-    pub async fn generate(&self, prompt: &str, negative_prompt: &str) -> Vec<DynamicImage> {
+    pub async fn generate(&self, prompt: &str, negative_prompt: &str, num_images: usize) -> Vec<DynamicImage> {
         match self.version {
             Api::V1 => {
                 todo!()
@@ -161,6 +161,7 @@ impl<'a> Model<'a> {
                 let image_urls: Vec<String> = res
                     .images
                     .iter()
+                    .take(num_images)
                     .map(|image| format!("{}/{}", URL_IMAGE, image))
                     .collect();
 

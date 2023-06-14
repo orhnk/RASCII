@@ -13,8 +13,28 @@ struct Args {
     #[arg(
         short,
         long,
-        help = "Use AI to generate ascii art")]
+        group = "AI",
+        help = "Use AI to generate ascii art"
+    )]
     query: Option<String>,
+
+    #[arg(
+        short,
+        long,
+        group = "AI",
+        requires = "query",
+        help = "Use AI to generate ascii art, but with a negative query"
+    )]
+    negative_query: Option<String>,
+
+    #[arg(
+        short = 'N',
+        long,
+        default_value = "9",
+        requires = "query",
+        help = "Number of images to generate when using AI [1:9]"
+    )]
+    num_image: usize,
 
     #[arg(
         short,
@@ -56,6 +76,14 @@ struct Args {
     charset: String,
 }
 
+// TODO
+// image number restriction
+// stderr for non ascii art
+// negative prompts
+// model types
+// api versions
+// api tokens for premiums
+
 #[tokio::main]
 async fn main() -> image::ImageResult<()> {
     let mut args = Args::parse();
@@ -71,12 +99,12 @@ async fn main() -> image::ImageResult<()> {
         let mut sp = Spinner::new(Spinners::Arc, query.clone()); // FIXME
 
         let model = Model::new();
-        let images = model.generate(&query, "").await;
+        let images = model.generate(&query, "", args.num_image).await;
 
         sp.stop_with_symbol("\x1b[32m✔\x1b[0m");
 
         for image in images {
-            let output = rascii_art::render_image_to(
+            rascii_art::render_image_to(
                 image,
                 &mut io::stdout(),
                 RenderOptions {
@@ -87,6 +115,7 @@ async fn main() -> image::ImageResult<()> {
                     charset,
                 },
             ).expect("Failed to generate image");
+            println!()
         }
         
         return Ok(());
