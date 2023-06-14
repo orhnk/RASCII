@@ -1,3 +1,4 @@
+use serde::{Deserialize, Serialize};
 use lazy_static::lazy_static;
 // use tokio;
 use reqwest::{header::{
@@ -7,9 +8,12 @@ use reqwest::{header::{
     }, Response};
 // use image;
 
-use std::fmt::Display;
+use std::{fmt::Display, collections::HashMap};
 
-const BASE_URL: &str = "https://api.craiyon.com";
+const URL_V3: &str = "https://api.craiyon.com/v3";
+// const URL_V2: &str = "https://api.craiyon.com/draw";
+const URL_V1: &str = "https://backend.craiyon.com/generate";
+const URL_IMAGE: &str = "https://img.craiyon.com";
 const MODEL_VER: &str = "35s5hfwn9n78gb06";
 
 lazy_static! {
@@ -20,33 +24,38 @@ lazy_static! {
     };
 }
 
-// const HEADERS = {"Content-Type": "application/json"};
-// const DATA = '"prompt": "{prompt}<br>"';
-// const DATA = "{" + data + "}";
-
-pub fn generate() {
-    todo!()
+async fn send_req(url: &str, json: &HashMap<&str, Option<&str>>) -> Result<Response, reqwest::Error> {
+    let client = reqwest::Client::new();
+    let res = client.post(url)
+        .json(json)
+        .headers(HEADERS.clone()) // FIXME
+        .send()
+        .await?;
+    Ok(res)
 }
 
-async fn send_req(client: reqwest::Client, url: &str, header: HeaderMap, data: String) -> Result<Response, reqwest::Error> {
-    Ok(client.post(url).header(CONTENT_TYPE, "application/json").body(data).send().await?)
-}
-
-fn get_req() {
-    todo!()
-}
 // TODO: Could add api_token for premium customers.
 /// API Versions for craiyon.com
 #[allow(dead_code)]
 pub enum Api {
     V1,
-    V2, // I guess it is deprecated
+    // V2, // deprecated
     V3,
 }
 
 impl Default for Api {
     fn default() -> Self {
         Api::V3
+    }
+}
+
+impl Display for Api {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::result::Result<(), ::std::fmt::Error> {
+        match self {
+            Api::V1 => f.write_str(URL_V1),
+            // Api::V2 => f.write_str(URL_V2),
+            Api::V3 => f.write_str(URL_V3),
+        }
     }
 }
 
@@ -65,20 +74,37 @@ impl Default for ModelType {
     }
 }
 
-pub struct Model {
+impl Display for ModelType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::result::Result<(), ::std::fmt::Error> {
+        match self {
+            ModelType::Art => f.write_str("art"),
+            ModelType::Drawing => f.write_str("drawing"),
+            ModelType::Photo => f.write_str("photo"),
+            ModelType::General => f.write_str("none"),
+        }
+    }
+}
+
+pub struct Model<'a> {
     model: ModelType,
     version: Api,
+    api_token: Option<&'a str>
 }
 
 #[allow(dead_code)]
-impl Model {
+impl<'a> Model<'a> {
     
     pub fn new() -> Self {
-        Self { model: Default::default(), version: Default::default() }
+        Self { model: Default::default(), version: Default::default(), api_token: None }
     }
     
     pub fn version(mut self, ver: Api) -> Self {
         self.version = ver;
+        self
+    }
+
+    pub fn api_token(mut self, api_token: &'a str) -> Self {
+        self.api_token = Some(api_token);
         self
     }
     
@@ -90,37 +116,38 @@ impl Model {
     pub fn from(model: ModelType, version: Api) -> Self {
         Self {
             model,
-            version
+            version,
+            api_token: None,
         }
     }
 
-    pub fn from_prompt(self, prompt: &str) {
-        let url = format!("{}{}/generate", BASE_URL, self.version);
-        let data = format!("{{\"prompt\": \"{}\", \"model\": \"{}\"}}", prompt, MODEL_VER);
-        println!("{}", data);
-        // let client = reqwest::Client::new();
-        // let resp = send_req(client, &url, HEADERS.clone(), data).await.unwrap();
-        // println!("{:?}", resp.text().await.unwrap());
+    #[allow(dead_code)]
+    pub fn from_prompt(&self, prompt: &str) {
+        todo!()
     }
-    pub fn generate(self, prompt: &str, negative_prompt: &str) {
-        let url = format!("{}{}/generate", BASE_URL, self.version);
-        let data = format!("{{\"prompt\": \"{}<br>Not: {}\", \"model\": \"{}\"}}", prompt, negative_prompt, MODEL_VER);
-        println!("{}", data);
-        // let client = reqwest::Client::new();
-        // let resp = send_req(client, &url, HEADERS.clone(), data).await.unwrap();
-        // println!("{:?}", resp.text().await.unwrap());
-    }
-}
 
-impl Display for Api {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::result::Result<(), ::std::fmt::Error> {
-        match self {
-            Api::V1 => f.write_str("/v1"),
-            Api::V2 => f.write_str("/v2"),
-            Api::V3 => f.write_str("/v3"),
+    #[allow(dead_code)]
+    pub async fn generate(&self, prompt: &str, negative_prompt: &str) {
+        match self.version {
+            Api::V1 => {
+                let data = HashMap::from([("prompt", prompt)]);
+            },
+
+            Api::V3 => {
+                let model = &self.model.to_string();
+                let data = HashMap::from([("prompt", Some(prompt)), ("negative_prompt", Some(negative_prompt)), ("model", Some(model)), ("token", self.api_token), ("version", Some(MODEL_VER))]);
+                println!("{data:#?}");
+                let response = send_req(dbg!(&self.version.to_string()), &data).await.unwrap(); // TODO better error handling
+                let res = response.text().await.expect("Couldn't parse response");
+                println!("{res:#?}");
+                // let images = Vec::from(response["images"].iter().map(|image| format!("{URL_IMAGE}/{}", image)));
+            },
         }
     }
+
 }
+
+
 
 // fn make_req(prompt: &str, negative_prompt: &str, model_type: &str)
 // macro_rules! make_req {
