@@ -1,13 +1,11 @@
 pub mod charsets;
+pub mod craiyon;
 
 mod gif_renderer;
 // pub use gif_renderer::GifRenderer;
 
 mod image_renderer;
-use std::{
-    io,
-    path::Path,
-};
+use std::{io, path::Path};
 
 mod renderer;
 pub use renderer::RenderOptions;
