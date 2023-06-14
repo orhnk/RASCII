@@ -1,28 +1,28 @@
-use std::io;
-use clap::Parser;
-use rascii_art::{charsets, craiyon::Model, RenderOptions};
+use clap::{Args as Arg, Parser};
+use rascii_art::{
+    charsets,
+    craiyon::{Api, Model, ModelType},
+    RenderOptions,
+};
 use spinners::{Spinner, Spinners};
+use std::io;
 use unicode_segmentation::UnicodeSegmentation;
 
 #[derive(Debug, Parser)]
 #[command(author, version, about)]
 struct Args {
-    #[arg(help = "Path to the image")]
-    filename: String,
+    #[arg(group = "source", help = "Path to the image")]
+    filename: Option<String>,
 
-    #[arg(
-        short,
-        long,
-        group = "AI",
-        help = "Use AI to generate ascii art"
-    )]
+    #[arg(short, long, group = "source", help = "Use AI to generate ascii art")]
     query: Option<String>,
 
     #[arg(
         short,
         long,
-        group = "AI",
+        default_value = "",
         requires = "query",
+        conflicts_with = "filename",
         help = "Use AI to generate ascii art, but with a negative query"
     )]
     negative_query: Option<String>,
@@ -30,11 +30,35 @@ struct Args {
     #[arg(
         short = 'N',
         long,
+        value_name = "NUMBER",
         default_value = "9",
         requires = "query",
-        help = "Number of images to generate when using AI [1:9]"
+        conflicts_with = "filename",
+        help = "Number of images to generate when using AI [1..9]"
     )]
     num_image: usize,
+
+    #[arg(
+        value_enum,
+        short,
+        long,
+        default_value = "general",
+        requires = "query",
+        conflicts_with = "filename",
+        help = "Model to use in generation"
+    )]
+    model_type: Option<ModelType>,
+
+    #[arg(
+        value_enum,
+        short,
+        name = "API_VERSION",
+        default_value = "3",
+        requires = "query",
+        conflicts_with = "filename",
+        help = "Model API version"
+    )]
+    version: Option<Api>,
 
     #[arg(
         short,
@@ -77,9 +101,7 @@ struct Args {
 }
 
 // TODO
-// image number restriction
 // stderr for non ascii art
-// negative prompts
 // model types
 // api versions
 // api tokens for premiums
@@ -95,11 +117,14 @@ async fn main() -> image::ImageResult<()> {
         args.width = Some(80);
     }
 
-    if let Some(query) = args.query {
+    if args.query.is_some() {
+        let query = args.query.unwrap();
         let mut sp = Spinner::new(Spinners::Arc, query.clone()); // FIXME
 
-        let model = Model::new();
-        let images = model.generate(&query, "", args.num_image).await;
+        let model = Model::from(args.model_type.unwrap(), args.version.unwrap());
+        let images = model
+            .generate(&query, &args.negative_query.unwrap(), args.num_image)
+            .await;
 
         sp.stop_with_symbol("\x1b[32m✔\x1b[0m");
 
@@ -114,15 +139,16 @@ async fn main() -> image::ImageResult<()> {
                     invert: args.invert,
                     charset,
                 },
-            ).expect("Failed to generate image");
-            println!()
+            )
+            .expect("Failed to generate image");
+            println!("\n");
         }
-        
+
         return Ok(());
     }
 
     rascii_art::render_to(
-        args.filename,
+        args.filename.unwrap(),
         &mut io::stdout(),
         RenderOptions {
             width: args.width,

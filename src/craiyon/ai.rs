@@ -1,3 +1,4 @@
+use clap::ValueEnum;
 use image::DynamicImage;
 use lazy_static::lazy_static;
 use reqwest::{
@@ -5,7 +6,11 @@ use reqwest::{
     Response,
 };
 use serde::{Deserialize, Serialize};
-use std::{collections::HashMap, fmt::Display};
+use std::{
+    cmp::{Eq, Ord, PartialEq, PartialOrd},
+    collections::HashMap,
+    fmt::Display,
+};
 
 const URL_V3: &str = "https://api.craiyon.com/v3";
 // const URL_V2: &str = "https://api.craiyon.com/draw"; // deprecated
@@ -37,11 +42,13 @@ async fn send_req(
 
 /// API Versions for craiyon.com
 #[allow(dead_code)]
-#[derive(Default)]
+#[derive(Debug, Default, Clone, Eq, PartialEq, PartialOrd, Ord, ValueEnum)]
 pub enum Api {
+    #[value(name = "1")]
     V1,
     // V2, // deprecated
     #[default]
+    #[value(name = "3")]
     V3,
 }
 
@@ -75,7 +82,7 @@ struct CraiyonResponse {
 
 /// Variants of craiyon::Model
 #[allow(dead_code)]
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone, Eq, PartialEq, PartialOrd, Ord, ValueEnum)]
 pub enum ModelType {
     Art,
     Drawing,
@@ -140,7 +147,12 @@ impl<'a> Model<'a> {
     }
 
     #[allow(dead_code)]
-    pub async fn generate(&self, prompt: &str, negative_prompt: &str, num_images: usize) -> Vec<DynamicImage> {
+    pub async fn generate(
+        &self,
+        prompt: &str,
+        negative_prompt: &str,
+        num_images: usize,
+    ) -> Vec<DynamicImage> {
         match self.version {
             Api::V1 => {
                 todo!()
