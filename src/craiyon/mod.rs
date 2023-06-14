@@ -1,2 +1,2 @@
-mod craiyon;
-pub use craiyon::*;
+pub mod ai;
+pub use ai::*;
