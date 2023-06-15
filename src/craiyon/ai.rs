@@ -69,17 +69,6 @@ struct CraiyonResponse {
     pub images: Vec<String>,
 }
 
-// TODO Syntax sugar to create a response instead of plain HashMap
-// #[derive(Debug, Serialize, Deserialize)]
-// #[serde(rename_all = "camelCase")]
-// struct CraiyonRequest {
-//     pub prompt: Option<String>,
-//     pub token: Option<String>,
-//     pub negative_prompt: Option<String>,
-//     pub model: Option<String>,
-//     pub version: Option<String>
-// }
-
 /// Variants of craiyon::Model
 #[allow(dead_code)]
 #[derive(Debug, Default, Clone, Eq, PartialEq, PartialOrd, Ord, ValueEnum)]
@@ -171,7 +160,7 @@ impl<'a> Model<'a> {
                 ("version", Some(MODEL_VER)),
             ]),
         };
-        let response = send_req(&self.version.to_string(), &data).await.unwrap(); // TODO better error handling
+        let response = send_req(&self.version.to_string(), &data).await.expect("Couldn't connect to server");
         let res: CraiyonResponse = response
             .json()
             .await
