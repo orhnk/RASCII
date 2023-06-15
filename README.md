@@ -8,27 +8,50 @@
   </p>
 </div>
 
-```
+<a name="reference">
+  <pre>
 Advanced ASCII Art Generator
 
-Usage: rascii [OPTIONS] <FILENAME>
+Usage: rascii [OPTIONS] [FILENAME]
 
 Arguments:
-  <FILENAME>  Path to the image
+  [FILENAME]  Path to the image
 
 Options:
-  -w, --width <WIDTH>      Width of the output image. Defaults to 128 if width and height are not specified
-  -H, --height <HEIGHT>    Height of the output image, if not specified, it will be calculated to keep the aspect ratio
-  -c, --color              Whether to use colors in the output image
-  -i, --invert             Inverts the weights of the characters. Useful for white backgrounds
-  -C, --charset <CHARSET>  Characters used to render the image, from transparent to opaque. Built-in charsets: block, emoji, default, russian, slight [default: default]
-  -h, --help               Print help
-  -V, --version            Print version
-```
+  -q, --query <QUERY>
+          &#9; Use AI to generate ascii art
+  -n, --negative-query <NEGATIVE_QUERY>
+          &#9; Use AI to generate ascii art, but with a negative query [default: ]
+  -N, --num-image <NUMBER>
+          &#9; Number of images to generate when using AI [1..9] [default: 9]
+  -m, --model-type <MODEL_TYPE>
+          Model to use in generation [default: general] [possible values: art, drawing, photo, general]
+  -v <API_VERSION>
+          &#9; Model API version [default: 3] [possible values: 1, 3]
+  -a, --api-token <TOKEN>
+          &#9; API token for premium users (Faster generation, No watermark)
+  -w, --width <WIDTH>
+          &#9; Width of the output image. Defaults to 128 if width and height are not specified
+  -H, --height <HEIGHT>
+          &#9; Height of the output image, if not specified, it will be calculated to keep the aspect ratio
+  -c, --color
+          &#9; Whether to use colors in the output image
+  -i, --invert
+          &#9; Inverts the weights of the characters. Useful for white backgrounds
+  -C, --charset <CHARSET>
+          &#9; Characters used to render the image, from transparent to opaque. Built-in charsets: block, emoji, default, russian, slight [default: default]
+  -h, --help
+          &#9; Print help
+  -V, --version
+          &#9; Print version
+  </pre>  
+</a>
 
 ## Features
 
 - **Available as a crate:** RASCII has a very simple API allowing you to use RASCII from your programs without using the system shell.
+
+- **AI generated ASCII art** RASCII uses craiyon API to generate ASCII art from text prompts.
 
 - **Colored ASCII art generation**: RASCII uses ANSI color codes to generate colored ASCII art.
   > **Note**: Your terminal emulator has to support `truecolor`
@@ -74,7 +97,7 @@ you can add the `rascii_art` crate to your project and use it in Rust!
 
 To do so, run `cargo add rascii_art` to add RASCII to your Cargo project.
 
-Here is a code example:
+### ASCII art from file content
 
 ```rs
 use rascii_art::{
@@ -99,7 +122,44 @@ fn main() {
 }
 ```
 
+### ASCII art from text prompt:
+
+```rs
+use rascii_art::{
+    craiyon::Model,
+    render_image_to,
+    RenderOptions,
+};
+
+fn main() {
+    let mut implements_io_write = String::new();
+
+    let model = Model::new();
+    let images = model.generate("A king crab", 1); // Generate 1 image
+
+    // Current API generates 9 images per prompt
+    for image in images {
+        render_image_to(
+            image,
+            &mut implements_io_write,
+            RenderOptions::new()
+                .width(100)
+                .colored(true)
+                .charset(&[".", ",", "-", "*", "£", "$", "#"]),
+        )
+        .unwrap();
+        println!("{implements_io_write}");
+    }
+}
+```
+
 ## Showcase
+
+### AI ascii art
+Use `rascii -q <QUERY> [OPTIONS]` to generate ascii art from text prompt. See [other options.](#reference)
+- `rascii -q "red camel" -c -C block`
+
+![RASCII output of "red camel" prompt](https://github.com/UTFeight/RASCII/assets/101834410/67dcb0c9-8f98-4243-b7df-01373d3b3643)
 
 ### Japanese Charset
 
@@ -120,8 +180,6 @@ fn main() {
 
 ![RASCII output of TrollPepe with the block charset](https://github.com/KoBruhh/RASCII/assets/101834410/3ac7e920-7ab4-441d-886e-2028b108578d)
 
-![RASCII output of Ferris with the block charset](https://github.com/KoBruhh/RASCII/assets/101834410/5122c5ba-8707-489e-a720-caf2e183b026)
-
 ### Custom ASCII Charset
 
 You can use the `--charset` (or `-C`) CLI option to provide a custom charset to use when generating some ASCII art.
@@ -136,13 +194,10 @@ Note that a charset similar to the above charset is available as a builtin named
 
 ![RASCII output of Ferris with a custom charset](https://user-images.githubusercontent.com/101834410/204243768-4a15bb21-ba93-4979-bd4f-d8e8b1dc4112.png)
 
-### Amogus
-
-![Amogus](https://user-images.githubusercontent.com/101834410/204243525-ed62e0df-789d-4da8-a3a5-3919c548e050.png)
 
 ### Contributors
 
-![KoBruhh](https://github.com/KoBruhh/RASCII/assets/101834410/2b06a6b0-9cb9-448e-8979-4a5182e2e4b2)
+![UTFeight](https://github.com/KoBruhh/RASCII/assets/101834410/2b06a6b0-9cb9-448e-8979-4a5182e2e4b2)
 ![RGBCube](https://github.com/KoBruhh/RASCII/assets/101834410/3e5b18c3-d7c8-4862-bee5-b5cf06c83994)
 ![felixonmars](https://github.com/KoBruhh/RASCII/assets/101834410/66914a48-a5c5-4619-a46d-b99c77b3cd77)
 ![fnordpig](https://github.com/fnordpig/RASCII/assets/1621189/5b3225f3-ae83-4ed3-a3fb-3d88de18f82e)
