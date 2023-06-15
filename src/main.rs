@@ -5,7 +5,7 @@ use rascii_art::{
     RenderOptions,
 };
 use spinoff::{spinners, Color, Spinner, Streams};
-use std::io;
+use std::{io, error::Error};
 use unicode_segmentation::UnicodeSegmentation;
 
 #[derive(Debug, Parser)]
@@ -111,7 +111,7 @@ struct Args {
 }
 
 #[tokio::main]
-async fn main() -> image::ImageResult<()> {
+async fn main() -> Result<(), Box<dyn Error>> {
     let mut args = Args::parse();
 
     let clusters = UnicodeSegmentation::graphemes(args.charset.as_str(), true).collect::<Vec<_>>();
@@ -134,7 +134,7 @@ async fn main() -> image::ImageResult<()> {
             .api_token(args.api_token.as_deref());
         let images = model
             .generate(&query, &args.negative_query.unwrap(), args.num_image)
-            .await;
+            .await?;
 
         spinner.success("\x1b[32mDone!\x1b[0m");
 
@@ -149,8 +149,7 @@ async fn main() -> image::ImageResult<()> {
                     invert: args.invert,
                     charset,
                 },
-            )
-            .expect("Failed to generate image");
+            )?;
             println!("\n");
         }
 

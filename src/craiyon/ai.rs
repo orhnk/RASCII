@@ -1,7 +1,7 @@
 use std::{
     cmp::{Eq, Ord, PartialEq, PartialOrd},
     collections::HashMap,
-    fmt::Display,
+    fmt::Display, error::Error,
 };
 
 use clap::ValueEnum;
@@ -31,13 +31,16 @@ async fn send_req(
     url: &str,
     json: &HashMap<&str, Option<&str>>,
 ) -> Result<Response, reqwest::Error> {
+
     let client = reqwest::Client::new();
+
     let res = client
         .post(url)
         .json(json)
         .headers(HEADERS.clone()) // FIXME
         .send()
         .await?;
+
     Ok(res)
 }
 
@@ -81,8 +84,8 @@ impl<'a> Model<'a> {
     }
 
     #[allow(dead_code)]
-    pub async fn from_prompt(&self, prompt: &str, num_images: usize) -> Vec<DynamicImage> {
-        self.generate(prompt, "", num_images).await
+    pub async fn from_prompt(&self, prompt: &str, num_images: usize) -> Result<Vec<DynamicImage>, Box<dyn Error>> {
+        Ok(self.generate(prompt, "", num_images).await?)
     }
 
     #[allow(dead_code)]
@@ -91,14 +94,14 @@ impl<'a> Model<'a> {
         prompt: &str,
         negative_prompt: &str,
         num_images: usize,
-    ) -> Vec<DynamicImage> {
-        assert!(num_images > 0, "Number of images must be greater than 0");
-        assert!(
-            num_images <= 9,
-            "Number of images must be less than or equal to 9"
-        );
+    ) -> Result<Vec<DynamicImage>, Box<dyn Error>> {
+
+        if num_images > 9{
+            panic!("Argument `num_images` has to be within the range of 0..9")
+        }
 
         let model = &self.model.to_string();
+
         let data = match self.version {
             Api::V1 => HashMap::from([("prompt", Some(prompt))]),
 
@@ -110,13 +113,14 @@ impl<'a> Model<'a> {
                 ("version", Some(MODEL_VER)),
             ]),
         };
+
         let response = send_req(&self.version.to_string(), &data)
-            .await
-            .expect("Couldn't connect to server");
+            .await?;
+
         let res: CraiyonResponse = response
             .json()
-            .await
-            .expect("Couldn't parse response. Check your arguments for misspelling");
+            .await?;
+
         let image_urls: Vec<String> = res
             .images
             .iter()
@@ -127,16 +131,16 @@ impl<'a> Model<'a> {
         let mut image_buf: Vec<DynamicImage> = Vec::with_capacity(image_urls.len());
 
         for image_url in image_urls {
-            let pixels = reqwest::blocking::get(image_url)
-                .expect("Failed to send request")
-                .bytes()
-                .expect("Failed to read response body")
+
+            let pixels = reqwest::blocking::get(image_url)?
+                .bytes()?
                 .to_vec();
-            let image = image::load_from_memory(&pixels).expect("Failed to decode image");
+
+            let image = image::load_from_memory(&pixels)?;
+
             image_buf.push(image);
         }
-
-        image_buf
+        Ok(image_buf)
     }
 }
 
@@ -190,7 +194,7 @@ impl Display for Api {
     }
 }
 
-/// Response Serializer
+/// Response Deserializer
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 struct CraiyonResponse {
