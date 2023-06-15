@@ -82,14 +82,14 @@ impl<'a> Model<'a> {
 
     #[allow(dead_code)]
     pub async fn from_prompt(&self, prompt: &str, num_images: usize) -> Vec<DynamicImage> {
-        self.generate(prompt, None, num_images).await
+        self.generate(prompt, "", num_images).await
     }
 
     #[allow(dead_code)]
     pub async fn generate(
         &self,
         prompt: &str,
-        negative_prompt: Option<&str>,
+        negative_prompt: &str,
         num_images: usize,
     ) -> Vec<DynamicImage> {
         assert!(num_images > 0, "Number of images must be greater than 0");
@@ -99,12 +99,12 @@ impl<'a> Model<'a> {
         );
 
         let model = &self.model.to_string();
-        let data: HashMap<&str, Option<&str>> = match self.version {
+        let data = match self.version {
             Api::V1 => HashMap::from([("prompt", Some(prompt))]),
 
             Api::V3 => HashMap::from([
                 ("prompt", Some(prompt)),
-                ("negative_prompt", negative_prompt),
+                ("negative_prompt", Some(negative_prompt)),
                 ("model", Some(model)),
                 ("token", self.api_token),
                 ("version", Some(MODEL_VER)),
