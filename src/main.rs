@@ -1,4 +1,4 @@
-use clap::{Args as Arg, Parser};
+use clap::Parser;
 use rascii_art::{
     charsets,
     craiyon::{Api, Model, ModelType},
@@ -63,6 +63,16 @@ struct Args {
     #[arg(
         short,
         long,
+        name = "TOKEN",
+        requires = "query",
+        conflicts_with = "filename",
+        help = "API token for premium users (Faster generation, No watermark)"
+    )]
+    api_token: Option<String>,
+
+    #[arg(
+        short,
+        long,
         help = "Width of the output image. Defaults to 128 if width and height are not specified"
     )]
     width: Option<u32>,
@@ -102,9 +112,6 @@ struct Args {
 
 // TODO
 // stderr for non ascii art
-// model types
-// api versions
-// api tokens for premiums
 
 #[tokio::main]
 async fn main() -> image::ImageResult<()> {
@@ -121,7 +128,7 @@ async fn main() -> image::ImageResult<()> {
         let query = args.query.unwrap();
         let mut sp = Spinner::new(Spinners::Arc, query.clone()); // FIXME
 
-        let model = Model::from(args.model_type.unwrap(), args.version.unwrap());
+        let model = Model::from(args.model_type.unwrap(), args.version.unwrap()).api_token(args.api_token.as_deref());
         let images = model
             .generate(&query, &args.negative_query.unwrap(), args.num_image)
             .await;

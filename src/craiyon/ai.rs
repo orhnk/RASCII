@@ -123,8 +123,8 @@ impl<'a> Model<'a> {
         self
     }
 
-    pub fn api_token(mut self, api_token: &'a str) -> Self {
-        self.api_token = Some(api_token);
+    pub fn api_token(mut self, api_token: Option<&'a str>) -> Self {
+        self.api_token = api_token;
         self
     }
 
@@ -169,7 +169,7 @@ impl<'a> Model<'a> {
                 ]);
 
                 let response = send_req(&self.version.to_string(), &data).await.unwrap(); // TODO better error handling
-                let res: CraiyonResponse = response.json().await.expect("Couldn't parse response");
+                let res: CraiyonResponse = response.json().await.expect("Couldn't parse response. Check your arguments for misspelling");
                 let image_urls: Vec<String> = res
                     .images
                     .iter()
