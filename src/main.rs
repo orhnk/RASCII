@@ -4,7 +4,7 @@ use rascii_art::{
     craiyon::{Api, Model, ModelType},
     RenderOptions,
 };
-use spinners::{Spinner, Spinners};
+use spinoff::{Spinner, spinners, Color, Streams};
 use std::io;
 use unicode_segmentation::UnicodeSegmentation;
 
@@ -110,9 +110,6 @@ struct Args {
     charset: String,
 }
 
-// TODO
-// stderr for non ascii art
-
 #[tokio::main]
 async fn main() -> image::ImageResult<()> {
     let mut args = Args::parse();
@@ -126,14 +123,14 @@ async fn main() -> image::ImageResult<()> {
 
     if args.query.is_some() {
         let query = args.query.unwrap();
-        let mut sp = Spinner::new(Spinners::Arc, query.clone()); // FIXME
+        let spinner = Spinner::new_with_stream(spinners::Arc, query.to_string(), Color::Green, Streams::Stderr);
 
         let model = Model::from(args.model_type.unwrap(), args.version.unwrap()).api_token(args.api_token.as_deref());
         let images = model
             .generate(&query, &args.negative_query.unwrap(), args.num_image)
             .await;
 
-        sp.stop_with_symbol("\x1b[32m✔\x1b[0m");
+        spinner.success("\x1b[32mDone!\x1b[0m");
 
         for image in images {
             rascii_art::render_image_to(
