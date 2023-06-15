@@ -1,15 +1,14 @@
 pub mod charsets;
 pub mod craiyon;
 
-mod gif_renderer;
-// pub use gif_renderer::GifRenderer;
-
-mod image_renderer;
-use std::{io, path::Path};
-
-mod renderer;
 pub use renderer::RenderOptions;
+
+mod gif_renderer;
+mod image_renderer;
+mod renderer;
+
 use renderer::Renderer;
+use std::{io, path::Path};
 
 pub fn render_to<P: AsRef<Path>>(
     path: P,

@@ -5,7 +5,7 @@ use rascii_art::{
     RenderOptions,
 };
 use spinoff::{spinners, Color, Spinner, Streams};
-use std::{io, error::Error};
+use std::{error::Error, io};
 use unicode_segmentation::UnicodeSegmentation;
 
 #[derive(Debug, Parser)]
@@ -123,6 +123,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     if args.query.is_some() {
         let query = args.query.unwrap();
+
         let spinner = Spinner::new_with_stream(
             spinners::Arc,
             query.to_string(),
@@ -132,6 +133,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
         let model = Model::from(args.model_type.unwrap(), args.version.unwrap())
             .api_token(args.api_token.as_deref());
+
         let images = model
             .generate(&query, &args.negative_query.unwrap(), args.num_image)
             .await?;
@@ -152,7 +154,6 @@ async fn main() -> Result<(), Box<dyn Error>> {
             )?;
             println!("\n");
         }
-
         return Ok(());
     }
 

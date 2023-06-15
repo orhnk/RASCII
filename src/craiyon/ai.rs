@@ -1,7 +1,8 @@
 use std::{
     cmp::{Eq, Ord, PartialEq, PartialOrd},
     collections::HashMap,
-    fmt::Display, error::Error,
+    error::Error,
+    fmt::Display,
 };
 
 use clap::ValueEnum;
@@ -31,7 +32,6 @@ async fn send_req(
     url: &str,
     json: &HashMap<&str, Option<&str>>,
 ) -> Result<Response, reqwest::Error> {
-
     let client = reqwest::Client::new();
 
     let res = client
@@ -84,7 +84,11 @@ impl<'a> Model<'a> {
     }
 
     #[allow(dead_code)]
-    pub async fn from_prompt(&self, prompt: &str, num_images: usize) -> Result<Vec<DynamicImage>, Box<dyn Error>> {
+    pub async fn from_prompt(
+        &self,
+        prompt: &str,
+        num_images: usize,
+    ) -> Result<Vec<DynamicImage>, Box<dyn Error>> {
         Ok(self.generate(prompt, "", num_images).await?)
     }
 
@@ -95,8 +99,7 @@ impl<'a> Model<'a> {
         negative_prompt: &str,
         num_images: usize,
     ) -> Result<Vec<DynamicImage>, Box<dyn Error>> {
-
-        if num_images > 9{
+        if num_images > 9 {
             panic!("Argument `num_images` has to be within the range of 0..9")
         }
 
@@ -114,12 +117,9 @@ impl<'a> Model<'a> {
             ]),
         };
 
-        let response = send_req(&self.version.to_string(), &data)
-            .await?;
+        let response = send_req(&self.version.to_string(), &data).await?;
 
-        let res: CraiyonResponse = response
-            .json()
-            .await?;
+        let res: CraiyonResponse = response.json().await?;
 
         let image_urls: Vec<String> = res
             .images
@@ -131,10 +131,7 @@ impl<'a> Model<'a> {
         let mut image_buf: Vec<DynamicImage> = Vec::with_capacity(image_urls.len());
 
         for image_url in image_urls {
-
-            let pixels = reqwest::blocking::get(image_url)?
-                .bytes()?
-                .to_vec();
+            let pixels = reqwest::blocking::get(image_url)?.bytes()?.to_vec();
 
             let image = image::load_from_memory(&pixels)?;
 
