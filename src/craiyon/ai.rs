@@ -1,3 +1,9 @@
+use std::{
+    cmp::{Eq, Ord, PartialEq, PartialOrd},
+    collections::HashMap,
+    fmt::Display,
+};
+
 use clap::ValueEnum;
 use image::DynamicImage;
 use lazy_static::lazy_static;
@@ -6,11 +12,6 @@ use reqwest::{
     Response,
 };
 use serde::{Deserialize, Serialize};
-use std::{
-    cmp::{Eq, Ord, PartialEq, PartialOrd},
-    collections::HashMap,
-    fmt::Display,
-};
 
 const URL_V3: &str = "https://api.craiyon.com/v3";
 // const URL_V2: &str = "https://api.craiyon.com/draw"; // deprecated
@@ -38,57 +39,6 @@ async fn send_req(
         .send()
         .await?;
     Ok(res)
-}
-
-/// API Versions for craiyon.com
-#[allow(dead_code)]
-#[derive(Debug, Default, Clone, Eq, PartialEq, PartialOrd, Ord, ValueEnum)]
-pub enum Api {
-    #[value(name = "1")]
-    V1,
-    // V2, // deprecated
-    #[default]
-    #[value(name = "3")]
-    V3,
-}
-
-impl Display for Api {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::result::Result<(), ::std::fmt::Error> {
-        match self {
-            Api::V1 => f.write_str(URL_V1),
-            // Api::V2 => f.write_str(URL_V2),
-            Api::V3 => f.write_str(URL_V3),
-        }
-    }
-}
-
-/// Response Serializer
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-struct CraiyonResponse {
-    pub images: Vec<String>,
-}
-
-/// Variants of craiyon::Model
-#[allow(dead_code)]
-#[derive(Debug, Default, Clone, Eq, PartialEq, PartialOrd, Ord, ValueEnum)]
-pub enum ModelType {
-    Art,
-    Drawing,
-    Photo,
-    #[default]
-    General,
-}
-
-impl Display for ModelType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::result::Result<(), ::std::fmt::Error> {
-        match self {
-            ModelType::Art => f.write_str("art"),
-            ModelType::Drawing => f.write_str("drawing"),
-            ModelType::Photo => f.write_str("photo"),
-            ModelType::General => f.write_str("none"),
-        }
-    }
 }
 
 pub struct Model<'a> {
@@ -160,7 +110,9 @@ impl<'a> Model<'a> {
                 ("version", Some(MODEL_VER)),
             ]),
         };
-        let response = send_req(&self.version.to_string(), &data).await.expect("Couldn't connect to server");
+        let response = send_req(&self.version.to_string(), &data)
+            .await
+            .expect("Couldn't connect to server");
         let res: CraiyonResponse = response
             .json()
             .await
@@ -192,4 +144,55 @@ impl Default for Model<'_> {
     fn default() -> Self {
         Self::new()
     }
+}
+
+/// Variants of craiyon::Model
+#[allow(dead_code)]
+#[derive(Debug, Default, Clone, Eq, PartialEq, PartialOrd, Ord, ValueEnum)]
+pub enum ModelType {
+    Art,
+    Drawing,
+    Photo,
+    #[default]
+    General,
+}
+
+impl Display for ModelType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::result::Result<(), ::std::fmt::Error> {
+        match self {
+            ModelType::Art => f.write_str("art"),
+            ModelType::Drawing => f.write_str("drawing"),
+            ModelType::Photo => f.write_str("photo"),
+            ModelType::General => f.write_str("none"),
+        }
+    }
+}
+
+/// API Versions for craiyon.com
+#[allow(dead_code)]
+#[derive(Debug, Default, Clone, Eq, PartialEq, PartialOrd, Ord, ValueEnum)]
+pub enum Api {
+    #[value(name = "1")]
+    V1,
+    // V2, // deprecated
+    #[default]
+    #[value(name = "3")]
+    V3,
+}
+
+impl Display for Api {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::result::Result<(), ::std::fmt::Error> {
+        match self {
+            Api::V1 => f.write_str(URL_V1),
+            // Api::V2 => f.write_str(URL_V2),
+            Api::V3 => f.write_str(URL_V3),
+        }
+    }
+}
+
+/// Response Serializer
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct CraiyonResponse {
+    pub images: Vec<String>,
 }
