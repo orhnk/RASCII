@@ -141,57 +141,61 @@ impl<'a> Model<'a> {
         }
     }
 
-    #[allow(dead_code, unused_variables)]
-    pub fn from_prompt(prompt: &str) {
-        todo!()
+    #[allow(dead_code)]
+    pub async fn from_prompt(&self, prompt: &str, num_images: usize) -> Vec<DynamicImage> {
+        self.generate(prompt, None, num_images).await
     }
 
     #[allow(dead_code)]
     pub async fn generate(
         &self,
         prompt: &str,
-        negative_prompt: &str,
+        negative_prompt: Option<&str>,
         num_images: usize,
     ) -> Vec<DynamicImage> {
-        match self.version {
-            Api::V1 => {
-                todo!()
-            }
+        assert!(num_images > 0, "Number of images must be greater than 0");
+        assert!(
+            num_images <= 9,
+            "Number of images must be less than or equal to 9"
+        );
 
-            Api::V3 => {
-                let model = &self.model.to_string();
-                let data = HashMap::from([
-                    ("prompt", Some(prompt)),
-                    ("negative_prompt", Some(negative_prompt)),
-                    ("model", Some(model)),
-                    ("token", self.api_token),
-                    ("version", Some(MODEL_VER)),
-                ]);
+        let model = &self.model.to_string();
+        let data: HashMap<&str, Option<&str>> = match self.version {
+            Api::V1 => HashMap::from([("prompt", Some(prompt))]),
 
-                let response = send_req(&self.version.to_string(), &data).await.unwrap(); // TODO better error handling
-                let res: CraiyonResponse = response.json().await.expect("Couldn't parse response. Check your arguments for misspelling");
-                let image_urls: Vec<String> = res
-                    .images
-                    .iter()
-                    .take(num_images)
-                    .map(|image| format!("{}/{}", URL_IMAGE, image))
-                    .collect();
+            Api::V3 => HashMap::from([
+                ("prompt", Some(prompt)),
+                ("negative_prompt", negative_prompt),
+                ("model", Some(model)),
+                ("token", self.api_token),
+                ("version", Some(MODEL_VER)),
+            ]),
+        };
+        let response = send_req(&self.version.to_string(), &data).await.unwrap(); // TODO better error handling
+        let res: CraiyonResponse = response
+            .json()
+            .await
+            .expect("Couldn't parse response. Check your arguments for misspelling");
+        let image_urls: Vec<String> = res
+            .images
+            .iter()
+            .take(num_images)
+            .map(|image| format!("{}/{}", URL_IMAGE, image))
+            .collect();
 
-                let mut image_buf: Vec<DynamicImage> = Vec::with_capacity(image_urls.len());
+        let mut image_buf: Vec<DynamicImage> = Vec::with_capacity(image_urls.len());
 
-                for image_url in image_urls {
-                    let pixels = reqwest::blocking::get(image_url)
-                        .expect("Failed to send request")
-                        .bytes()
-                        .expect("Failed to read response body")
-                        .to_vec();
-                    let image = image::load_from_memory(&pixels).expect("Failed to decode image");
-                    image_buf.push(image);
-                }
-
-                image_buf
-            }
+        for image_url in image_urls {
+            let pixels = reqwest::blocking::get(image_url)
+                .expect("Failed to send request")
+                .bytes()
+                .expect("Failed to read response body")
+                .to_vec();
+            let image = image::load_from_memory(&pixels).expect("Failed to decode image");
+            image_buf.push(image);
         }
+
+        image_buf
     }
 }
 

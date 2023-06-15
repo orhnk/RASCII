@@ -4,7 +4,7 @@ use rascii_art::{
     craiyon::{Api, Model, ModelType},
     RenderOptions,
 };
-use spinoff::{Spinner, spinners, Color, Streams};
+use spinoff::{spinners, Color, Spinner, Streams};
 use std::io;
 use unicode_segmentation::UnicodeSegmentation;
 
@@ -20,7 +20,6 @@ struct Args {
     #[arg(
         short,
         long,
-        default_value = "",
         requires = "query",
         conflicts_with = "filename",
         help = "Use AI to generate ascii art, but with a negative query"
@@ -123,11 +122,17 @@ async fn main() -> image::ImageResult<()> {
 
     if args.query.is_some() {
         let query = args.query.unwrap();
-        let spinner = Spinner::new_with_stream(spinners::Arc, query.to_string(), Color::Green, Streams::Stderr);
+        let spinner = Spinner::new_with_stream(
+            spinners::Arc,
+            query.to_string(),
+            Color::Green,
+            Streams::Stderr,
+        );
 
-        let model = Model::from(args.model_type.unwrap(), args.version.unwrap()).api_token(args.api_token.as_deref());
+        let model = Model::from(args.model_type.unwrap(), args.version.unwrap())
+            .api_token(args.api_token.as_deref());
         let images = model
-            .generate(&query, &args.negative_query.unwrap(), args.num_image)
+            .generate(&query, args.negative_query.as_deref(), args.num_image)
             .await;
 
         spinner.success("\x1b[32mDone!\x1b[0m");
