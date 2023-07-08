@@ -10,41 +10,30 @@ use unicode_segmentation::UnicodeSegmentation;
 #[derive(Debug, Parser)]
 #[command(author, version, about)]
 struct Args {
-    #[arg(help = "Path to the image")]
+    /// Path to the image
     filename: String,
-    #[arg(
-        short,
-        long,
-        help = "Width of the output image. Defaults to 128 if width and height are not specified"
-    )]
+
+    /// Width of the output image. Defaults to 128 if width and height are not
+    /// specified
+    #[arg(short, long)]
     width: Option<u32>,
-    #[arg(
-        short = 'H',
-        long,
-        help = "Height of the output image, if not specified, it will be calculated to keep the \
-                aspect ratio"
-    )]
+
+    /// Height of the output image, if not specified, it will be calculated to
+    /// keep the aspect ratio
+    #[arg(short = 'H', long)]
     height: Option<u32>,
-    #[arg(
-        name = "color",
-        short,
-        long,
-        help = "Whether to use colors in the output image"
-    )]
+
+    /// Whether to use colors in the output image
+    #[arg(name = "color", short, long)]
     colored: bool,
-    #[arg(
-        short,
-        long,
-        help = "Inverts the weights of the characters. Useful for white backgrounds"
-    )]
+
+    /// Inverts the weights of the characters. Useful for white backgrounds
+    #[arg(short, long)]
     invert: bool,
-    #[arg(
-        short = 'C',
-        long,
-        default_value = "default",
-        help = "Characters used to render the image, from transparent to opaque. Built-in \
-                charsets: block, emoji, default, russian, slight"
-    )]
+
+    /// Characters used to render the image, from transparent to opaque.
+    /// Built-in charsets: block, emoji, default, russian, slight
+    #[arg(short = 'C', long, default_value = "default")]
     charset: String,
 }
 
