@@ -12,8 +12,8 @@ use super::renderer::{
 };
 
 pub struct ImageRenderer<'a> {
-    resource: DynamicImage,
-    options: RenderOptions<'a>,
+    resource: &'a DynamicImage,
+    options: &'a RenderOptions<'a>,
 }
 
 impl ImageRenderer<'_> {
@@ -36,7 +36,7 @@ impl ImageRenderer<'_> {
 }
 
 impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
-    fn new(resource: DynamicImage, options: RenderOptions<'a>) -> Self {
+    fn new(resource: &'a DynamicImage, options: &'a RenderOptions<'a>) -> Self {
         Self { resource, options }
     }
 

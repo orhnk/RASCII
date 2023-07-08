@@ -59,9 +59,9 @@ fn main() -> image::ImageResult<()> {
     }
 
     rascii_art::render_to(
-        args.filename,
+        &args.filename,
         &mut io::stdout(),
-        RenderOptions {
+        &RenderOptions {
             width: args.width,
             height: args.height,
             colored: args.colored,

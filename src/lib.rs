@@ -4,6 +4,8 @@ mod gif_renderer;
 // pub use gif_renderer::GifRenderer;
 
 mod image_renderer;
+use image_renderer::ImageRenderer;
+use image::DynamicImage;
 use std::{
     io,
     path::Path,
@@ -16,17 +18,17 @@ use renderer::Renderer;
 pub fn render_to<P: AsRef<Path>>(
     path: P,
     to: &mut impl io::Write,
-    options: RenderOptions<'_>,
+    options: &RenderOptions<'_>,
 ) -> image::ImageResult<()> {
-    render_image_to(image::open(path)?, to, options)
+    render_image_to(&image::open(path)?, to, &options)
 }
 
 pub fn render_image_to(
-    image: image::DynamicImage,
+    image: &DynamicImage,
     to: &mut impl io::Write,
-    options: RenderOptions<'_>,
+    options: &RenderOptions<'_>,
 ) -> image::ImageResult<()> {
-    let renderer = image_renderer::ImageRenderer::new(image, options);
+    let renderer = ImageRenderer::new(image, options);
     renderer.render(to)?;
     Ok(())
 }
