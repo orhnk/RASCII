@@ -23,9 +23,9 @@
 pub mod charsets;
 
 mod gif_renderer;
-// pub use gif_renderer::GifRenderer;
-
 mod image_renderer;
+mod renderer;
+
 use std::{
     io,
     path::Path,
@@ -33,8 +33,6 @@ use std::{
 
 use image::DynamicImage;
 use image_renderer::ImageRenderer;
-
-mod renderer;
 pub use renderer::RenderOptions;
 use renderer::Renderer;
 
