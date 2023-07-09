@@ -9,7 +9,7 @@
 //!     let mut buf = String::new();
 //!
 //!     render_to(
-//!         "/path/to/image.png",
+//!         r"/path/to/image.png",
 //!         &mut buf,
 //!         &RenderOptions::new()
 //!             .width(100)
@@ -30,18 +30,20 @@ use std::{
     io,
     path::Path,
 };
-
+use expanduser::expanduser;
 use image::DynamicImage;
 use image_renderer::ImageRenderer;
 pub use renderer::RenderOptions;
 use renderer::Renderer;
 
-pub fn render<P: AsRef<Path>>(
+pub fn render<P: AsRef<Path> + AsRef<str>>(
     path: P,
     to: &mut impl io::Write,
     options: &RenderOptions<'_>,
 ) -> image::ImageResult<()> {
-    render_image(&image::open(path)?, to, &options)
+    let absolute_path = expanduser(&path)?;
+    let image = &image::open(absolute_path)?;
+    render_image(image, to, &options)
 }
 
 pub fn render_image(
@@ -54,12 +56,13 @@ pub fn render_image(
     Ok(())
 }
 
-pub fn render_to<P: AsRef<Path>>(
+pub fn render_to<P: AsRef<Path> + AsRef<str>>(
     path: P,
     buffer: &mut String,
     options: &RenderOptions<'_>,
 ) -> image::ImageResult<()> {
-    let image = &image::open(path)?;
+    let absolute_path = expanduser(&path)?;
+    let image = &image::open(absolute_path)?;
     let renderer = ImageRenderer::new(image, options);
     renderer.render_to(buffer)?;
     Ok(())
