@@ -77,24 +77,24 @@ To do so, run `cargo add rascii_art` to add RASCII to your Cargo project.
 Here is a code example:
 
 ```rs
- use rascii_art::{
-     render_to,
-     RenderOptions,
- };
-                                                             
- fn main() {
-     let mut buf = String::new();
-                                                             
-     render_to(
-         "/path/to/image.png",
-         &mut buf,
-         &RenderOptions::new()
-             .width(100)
-             .colored(true)
-             .charset(&[".", ",", "-", "*", "£", "$", "#"]),
-     )
-     .unwrap();
- }
+use rascii_art::{
+    render_to,
+    RenderOptions,
+};
+                                                            
+fn main() {
+    let mut buffer = String::new();
+                                                            
+    render_to(
+        r"/path/to/image.png",
+        &mut buffer,
+        &RenderOptions::new()
+            .width(100)
+            .colored(true)
+            .charset(&[".", ",", "-", "*", "£", "$", "#"]),
+    )
+    .unwrap();
+}
 ```
 
 ## Showcase
