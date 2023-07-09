@@ -67,4 +67,6 @@ pub trait Renderer<'a, R> {
     fn new(resource: &'a R, options: &'a RenderOptions<'a>) -> Self;
 
     fn render(&self, writer: &mut impl io::Write) -> io::Result<()>;
+
+    fn render_to(&self, writer: &mut String) -> io::Result<()>;
 }

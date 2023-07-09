@@ -107,4 +107,79 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
 
         Ok(())
     }
+
+    fn render_to(&self, buffer: &mut String) -> io::Result<()> {
+        let (width, height) = (
+            self.options.width.unwrap_or_else(|| {
+
+                (self
+                    .options
+                    .height
+                    .expect("Either width or height must be set") as f64
+                    * self.resource.width() as f64
+                    / self.resource.height() as f64
+                    // This is because the font is rarely square.
+                    * 2.0)
+                    .ceil() as u32
+            }),
+
+            self.options.height.unwrap_or_else(|| {
+                (self
+                    .options
+                    .width
+                    .expect("Either width or height must be set") as f64
+                    * self.resource.height() as f64
+                    / self.resource.width() as f64
+                    // This is because the font is rarely square.
+                    / 2.0)
+                    .ceil() as u32
+            }),
+
+        );
+
+        let image = self.resource.thumbnail_exact(width, height).to_rgba8();
+
+        let mut last_color: Option<Color> = None;
+        let mut current_line = 0;
+        let maximum = image
+            .pixels()
+            .fold(0.0, |acc, pixel| self.get_grayscale(pixel).max(acc));
+        for (_, line, pixel) in image.enumerate_pixels() {
+            if current_line < line {
+                current_line = line;
+
+                if let Some(last_color_value) = last_color {
+                    buffer.push_str(&last_color_value.suffix().to_string()); // TODO look up for a
+                    // better solution after benchmarking.
+                    last_color = None;
+                }
+
+                buffer.push('\n');
+            }
+
+            if self.options.colored {
+                let color = Color::RGB(pixel[0], pixel[1], pixel[2]);
+
+                if last_color != Some(color) {
+                    buffer.push_str(&color.prefix().to_string());
+                }
+
+                last_color = Some(color);
+            }
+
+            // Normally this char_for_pixel has to be a char but because of the compatibility
+            // reasons with unicode-segmentation It's implemented as a &str (WORKAROUND)
+            let char_for_pixel = self.get_char_for_pixel(pixel, maximum);
+            buffer.push_str(char_for_pixel);
+        }
+
+
+        if let Some(last_color) = last_color {
+            buffer.push_str(&last_color.suffix().to_string()); // TODO look up for a
+            // better solution after benchmarking.
+        }
+
+        Ok(())
+    }
+
 }

@@ -47,7 +47,7 @@ fn main() -> image::ImageResult<()> {
         args.width = Some(80);
     }
 
-    rascii_art::render_to(
+    rascii_art::render(
         &args.filename,
         &mut io::stdout(),
         &RenderOptions {
