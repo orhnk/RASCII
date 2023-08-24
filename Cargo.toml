@@ -1,7 +1,7 @@
 [package]
 name = "rascii_art"
 version = "0.4.4"
-authors = [ "KoBruhh", "RGBCube" ]
+authors = [ "UTFeight", "RGBCube" ]
 description = "Advanced ASCII Art Generator"
 repository = "https://github.com/UTFeight/RASCII"
 keywords = [ "ascii" ]
