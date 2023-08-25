@@ -40,7 +40,7 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
         Self { resource, options }
     }
 
-    fn render(&self, writer: &mut impl io::Write) -> io::Result<()> {
+    fn render_to(&self, writer: &mut impl io::Write) -> io::Result<()> {
         let (width, height) = (
             self.options.width.unwrap_or_else(|| {
                 (self
@@ -108,7 +108,7 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
         Ok(())
     }
 
-    fn render_to(&self, buffer: &mut String) -> io::Result<()> {
+    fn render(&self, buffer: &mut String) -> io::Result<()> {
         let (width, height) = (
             self.options.width.unwrap_or_else(|| {
 

@@ -47,7 +47,7 @@ pub fn render_image(
     options: &RenderOptions<'_>,
 ) -> image::ImageResult<()> {
     let renderer = ImageRenderer::new(image, options);
-    renderer.render(to)?;
+    renderer.render_to(to)?;
     Ok(())
 }
 
@@ -58,7 +58,7 @@ pub fn render_to<P: AsRef<Path> + AsRef<str>>(
 ) -> image::ImageResult<()> {
     let image = &image::open(path)?;
     let renderer = ImageRenderer::new(image, options);
-    renderer.render_to(buffer)?;
+    renderer.render(buffer)?;
     Ok(())
 }
 
@@ -68,6 +68,6 @@ pub fn render_image_to(
     options: &RenderOptions<'_>,
 ) -> image::ImageResult<()> {
     let renderer = ImageRenderer::new(image, options);
-    renderer.render_to(buffer)?;
+    renderer.render(buffer)?;
     Ok(())
 }
