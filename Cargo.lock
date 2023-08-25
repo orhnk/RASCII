@@ -605,10 +605,9 @@ dependencies = [
 
 [[package]]
 name = "rascii_art"
-version = "0.4.3"
+version = "0.4.4"
 dependencies = [
  "ansi_term",
- "cfg-if",
  "clap",
  "image",
  "unicode-segmentation",
