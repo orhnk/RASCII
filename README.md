@@ -65,7 +65,8 @@ Options:
 > This is the recommended way of installing the RASCII CLI.
 
 <!--deno-fmt-ignore-->
-> [!WARNING]: You must have `~/.cargo/bin/` in your `PATH` to run `rascii`
+> [!WARNING]
+> You must have `~/.cargo/bin/` in your `PATH` to run `rascii`
 > directly.
 
 ```sh
@@ -119,7 +120,9 @@ fn main() {
 
 ### Japanese Charset
 
-![RASCII output of chad with the Japanese charset](https://github.com/KoBruhh/RASCII/assets/101834410/c038edc9-cab3-4270-95df-0269203763fd)
+<p align="center">
+    <img src="https://github.com/KoBruhh/RASCII/assets/101834410/c038edc9-cab3-4270-95df-0269203763fd">
+</p>
 
 ### Emoji Charset
 
@@ -128,17 +131,23 @@ fn main() {
 > The emoji charset does not guarantee your outputs color will match
 > the color of your image, this is just a coincidence that happened with Ferris.
 
-![RASCII output of ferris with the emoji charset](https://user-images.githubusercontent.com/101834410/204243964-f4cfdf8d-10b9-4a2c-8d3c-41182320c789.png)
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/101834410/204243964-f4cfdf8d-10b9-4a2c-8d3c-41182320c789.png">
+</p>
 
 ### Chinese Charset
 
-![RASCII output with the Chinese charset](https://github.com/KoBruhh/RASCII/assets/101834410/357c084f-ea93-40f9-baa8-16e329b95a51)
+<p align="center">
+    <img src="https://github.com/KoBruhh/RASCII/assets/101834410/357c084f-ea93-40f9-baa8-16e329b95a51">
+</p>
 
 ### Block Charset
 
-![RASCII output of TrollPepe with the block charset](https://github.com/KoBruhh/RASCII/assets/101834410/3ac7e920-7ab4-441d-886e-2028b108578d)
+<p align="center">
+    <img src="https://github.com/KoBruhh/RASCII/assets/101834410/3ac7e920-7ab4-441d-886e-2028b108578d">
+</p>
 
-![RASCII output of Ferris with the block charset](https://github.com/KoBruhh/RASCII/assets/101834410/5122c5ba-8707-489e-a720-caf2e183b026)
+<!-- ![RASCII output of Ferris with the block charset](https://github.com/KoBruhh/RASCII/assets/101834410/5122c5ba-8707-489e-a720-caf2e183b026) -->
 
 ### Custom ASCII Charset
 
@@ -154,7 +163,9 @@ rascii --charset " ░▒▓█" --color ferris.png
 Note that a charset similar to the above charset is available as a builtin named
 `block`.
 
-![RASCII output of Ferris with a custom charset](https://user-images.githubusercontent.com/101834410/204243768-4a15bb21-ba93-4979-bd4f-d8e8b1dc4112.png)
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/101834410/204243768-4a15bb21-ba93-4979-bd4f-d8e8b1dc4112.png">
+</p>
 
 ### Contributors
 
