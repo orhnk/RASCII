@@ -52,7 +52,8 @@ Options:
   ASCII art.
 
 <!-- deno-fmt-ignore -->
-> [!NOTE] The given charset must go from transparent to opaque.
+> [!NOTE]
+> The given charset must go from transparent to opaque.
 
 - **Lots of pre-included charsets.**
 
