@@ -173,3 +173,14 @@ Note that a charset similar to the above charset is available as a builtin named
 ![RGBCube](https://github.com/KoBruhh/RASCII/assets/101834410/3e5b18c3-d7c8-4862-bee5-b5cf06c83994)
 ![felixonmars](https://github.com/KoBruhh/RASCII/assets/101834410/66914a48-a5c5-4619-a46d-b99c77b3cd77)
 ![fnordpig](https://github.com/fnordpig/RASCII/assets/1621189/5b3225f3-ae83-4ed3-a3fb-3d88de18f82e)
+
+---
+
+<!-- deno-fmt-ignore -->
+> [!NOTE]
+> There is a python script in `scripts/` that can be used to generate the above
+> contributor ASCII Art.
+>
+> ```sh
+> python scripts/contributors.py
+> ```
