@@ -82,9 +82,7 @@ cargo install rascii_art
 > GNU/Linux or any other POSIX compatible systems!
 
 ```sh
-git clone https://github.com/KoBruhh/RASCII && cd RASCII
-chmod +x install.sh
-./install.sh
+curl -sL https://raw.githubusercontent.com/orhnk/RASCII/refs/heads/master/install.sh | sh
 ```
 
 ## Using The Crate

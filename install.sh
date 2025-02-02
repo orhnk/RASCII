@@ -1,11 +1,11 @@
 #!/bin/sh
 
-echo "Sudo is needed to copy the binary to /usr/bin - prompting now."
+echo "Sudo is needed to copy the binary to /usr/local/bin - prompting now."
 sudo true
 
 cargo build --release
 
-sudo cp ./target/release/rascii /usr/bin
+sudo cp ./target/release/rascii /usr/local/bin
 
 echo "RASCII has been successfully installed on your system. You can run
 
