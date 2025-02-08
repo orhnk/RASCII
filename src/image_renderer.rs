@@ -82,7 +82,8 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
             if self.options.colored {
                 let color = Color::RGB(pixel[0], pixel[1], pixel[2]);
 
-                if last_color != Some(color) {
+                // write prefix before a new color, unless we escape all characters individually
+                if self.options.escape_all_colored_chars || last_color != Some(color) {
                     write!(writer, "{}", color.prefix())?;
                 }
 
@@ -151,7 +152,8 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
             if self.options.colored {
                 let color = Color::RGB(pixel[0], pixel[1], pixel[2]);
 
-                if last_color != Some(color) {
+                // write prefix before a new color, unless we escape all characters individually
+                if self.options.escape_all_colored_chars || last_color != Some(color) {
                     buffer.push_str(&color.prefix().to_string());
                 }
 

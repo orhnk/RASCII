@@ -7,6 +7,7 @@ pub struct RenderOptions<'a> {
     pub width: Option<u32>,
     pub height: Option<u32>,
     pub colored: bool,
+    pub escape_all_colored_chars: bool,
     pub invert: bool,
     pub charset: &'a [&'a str],
 }
@@ -57,6 +58,7 @@ impl Default for RenderOptions<'_> {
             width: None,
             height: None,
             colored: false,
+            escape_all_colored_chars: false,
             invert: false,
             charset: charsets::DEFAULT,
         }
