@@ -11,7 +11,7 @@ edition = "2021"
 [dependencies]
 ansi_term = "0.12.1"
 clap = { version = "4.3.0", features = [ "derive" ] }
-image = "0.24.6"
+image = "0.25.5"
 unicode-segmentation = "1.10.1"
 
 
