@@ -7,7 +7,7 @@ pub struct RenderOptions<'a> {
     pub width: Option<u32>,
     pub height: Option<u32>,
     pub colored: bool,
-    pub escape_all_colored_chars: bool,
+    pub escape_each_colored_char: bool,
     pub invert: bool,
     pub charset: &'a [&'a str],
 }
@@ -39,6 +39,12 @@ impl<'a> RenderOptions<'a> {
         self
     }
 
+    /// Set whether each colored char should be escaped in the rendered image.
+    pub fn escape_each_colored_char(mut self, escape_each_colored_char: bool) -> Self {
+        self.escape_each_colored_char = escape_each_colored_char;
+        self
+    }
+
     /// Set whether the rendered image charset should be inverted.
     pub fn invert(mut self, invert: bool) -> Self {
         self.invert = invert;
@@ -58,7 +64,7 @@ impl Default for RenderOptions<'_> {
             width: None,
             height: None,
             colored: false,
-            escape_all_colored_chars: false,
+            escape_each_colored_char: false,
             invert: false,
             charset: charsets::DEFAULT,
         }

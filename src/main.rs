@@ -24,11 +24,10 @@ struct Args {
     #[arg(name = "color", short, long)]
     colored: bool,
 
-    /// Whether all characters should have an ANSI escape sequence before each character.
-    ///
+    /// Whether all characters should have an ANSI color code before each character.
     /// Defaults to only escape colored strings upon color change.
-    #[arg(name = "escape-all-colored-chars", short, long)]
-    escape_all_colored_chars: bool,
+    #[arg(name = "escape-each-char", short, long)]
+    escape_each_colored_char: bool,
 
     /// Inverts the weights of the characters. Useful for white backgrounds
     #[arg(short, long)]
@@ -58,7 +57,7 @@ fn main() -> image::ImageResult<()> {
             height: args.height,
             colored: args.colored,
             invert: args.invert,
-            escape_all_colored_chars: args.escape_all_colored_chars,
+            escape_each_colored_char: args.escape_each_colored_char,
             charset,
         },
     )?;
