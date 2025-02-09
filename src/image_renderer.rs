@@ -10,12 +10,14 @@ pub struct ImageRenderer<'a> {
     options: &'a RenderOptions<'a>,
 }
 
+const OPACITY_THRESHOLD: f64 = 0.95;
+
 impl ImageRenderer<'_> {
     fn get_char_for_pixel(&self, pixel: &Rgba<u8>, maximum: f64) -> &str {
         let as_grayscale = self.get_grayscale(pixel) / maximum;
         let percent_opaque = self.get_opacity_percent(pixel);
 
-        let char_index = if percent_opaque < 0.95 {
+        let char_index = if percent_opaque < OPACITY_THRESHOLD {
             // if we are below 95% opacity, count this pixel as transparent and give minimum index
             0
         } else {
