@@ -1,4 +1,4 @@
-use std::io;
+use std::{io, u8};
 
 use ansi_term::Color;
 use image::{DynamicImage, Rgba};
@@ -13,15 +13,24 @@ pub struct ImageRenderer<'a> {
 impl ImageRenderer<'_> {
     fn get_char_for_pixel(&self, pixel: &Rgba<u8>, maximum: f64) -> &str {
         let as_grayscale = self.get_grayscale(pixel) / maximum;
+        let transparency_percent = self.get_transparency_percent(pixel);
 
-        // TODO: Use alpha channel to determine if pixel is transparent?
-        let char_index = (as_grayscale * (self.options.charset.len() as f64 - 1.0)) as usize;
+        let char_index = if transparency_percent < 0.95 {
+            // if we have at least 95% transparency, count this pixel as transparent and give minimum index
+            0
+        } else {
+            (as_grayscale * (self.options.charset.len() as f64 - 1.0)) as usize
+        };
 
         self.options.charset[if self.options.invert {
             self.options.charset.len() - 1 - char_index
         } else {
             char_index
         }]
+    }
+
+    fn get_transparency_percent(&self, pixel: &Rgba<u8>) -> f64 {
+        pixel[3] as f64 / u8::MAX as f64
     }
 
     fn get_grayscale(&self, pixel: &Rgba<u8>) -> f64 {
