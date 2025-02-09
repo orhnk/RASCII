@@ -13,10 +13,10 @@ pub struct ImageRenderer<'a> {
 impl ImageRenderer<'_> {
     fn get_char_for_pixel(&self, pixel: &Rgba<u8>, maximum: f64) -> &str {
         let as_grayscale = self.get_grayscale(pixel) / maximum;
-        let transparency_percent = self.get_transparency_percent(pixel);
+        let percent_opaque = self.get_opacity_percent(pixel);
 
-        let char_index = if transparency_percent < 0.95 {
-            // if we have at least 95% transparency, count this pixel as transparent and give minimum index
+        let char_index = if percent_opaque < 0.95 {
+            // if we are below 95% opacity, count this pixel as transparent and give minimum index
             0
         } else {
             (as_grayscale * (self.options.charset.len() as f64 - 1.0)) as usize
@@ -29,7 +29,7 @@ impl ImageRenderer<'_> {
         }]
     }
 
-    fn get_transparency_percent(&self, pixel: &Rgba<u8>) -> f64 {
+    fn get_opacity_percent(&self, pixel: &Rgba<u8>) -> f64 {
         pixel[3] as f64 / u8::MAX as f64
     }
 
