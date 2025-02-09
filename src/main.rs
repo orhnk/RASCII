@@ -46,7 +46,7 @@ fn main() -> image::ImageResult<()> {
     let charset = charsets::from_str(args.charset.as_str()).unwrap_or(clusters.as_slice());
 
     if args.width.is_none() && args.height.is_none() {
-        args.width = Some(80);
+        args.width = Some(128);
     }
 
     rascii_art::render(
