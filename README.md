@@ -42,7 +42,7 @@ Options:
 
 - **Super efficient colored output**: RASCII (by default) never repeats the same ANSI color
   code if it is already active.
-  > This makes a huge difference in images with little alternating color, up to
+  > This makes a huge difference in images with little alternating colors, up to
   > about 1800% reduction in output size. Woah!
 
 - **Custom dimensions**: RASCII allows you to give custom dimensions to the
