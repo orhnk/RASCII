@@ -3,7 +3,15 @@
 echo "Sudo is needed to copy the binary to /usr/local/bin - prompting now."
 sudo true
 
-git clone https://github.com/orhnk/RASCII
+if [ -d "RASCII" ]; then
+    echo "Error: RASCII directory already exists"
+    exit 1
+fi
+
+if ! git clone https://github.com/orhnk/RASCII; then
+    echo "Error: Failed to clone RASCII repository"
+    exit 1
+fi
 
 cd RASCII
 
