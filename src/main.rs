@@ -34,7 +34,7 @@ struct Args {
     invert: bool,
 
     /// Characters used to render the image, from transparent to opaque.
-    /// Built-in charsets: block, emoji, default, russian, slight
+    /// Built-in charsets: block, emoji, default, russian, slight, minimal
     #[arg(short = 'C', long, default_value = "default")]
     charset: String,
 }
