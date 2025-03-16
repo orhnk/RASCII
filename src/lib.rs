@@ -38,7 +38,7 @@ pub fn render<P: AsRef<Path> + AsRef<str>>(
     options: &RenderOptions<'_>,
 ) -> image::ImageResult<()> {
     let image = &image::open(path)?;
-    render_image(image, to, &options)
+    render_image(image, to, options)
 }
 
 pub fn render_image(

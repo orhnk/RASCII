@@ -1,15 +1,9 @@
 use std::io;
 
 use ansi_term::Color;
-use image::{
-    DynamicImage,
-    Rgba,
-};
+use image::{DynamicImage, Rgba};
 
-use super::renderer::{
-    RenderOptions,
-    Renderer,
-};
+use super::renderer::{RenderOptions, Renderer};
 
 pub struct ImageRenderer<'a> {
     resource: &'a DynamicImage,
@@ -111,7 +105,6 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
     fn render(&self, buffer: &mut String) -> io::Result<()> {
         let (width, height) = (
             self.options.width.unwrap_or_else(|| {
-
                 (self
                     .options
                     .height
@@ -122,7 +115,6 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
                     * 2.0)
                     .ceil() as u32
             }),
-
             self.options.height.unwrap_or_else(|| {
                 (self
                     .options
@@ -134,7 +126,6 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
                     / 2.0)
                     .ceil() as u32
             }),
-
         );
 
         let image = self.resource.thumbnail_exact(width, height).to_rgba8();
@@ -150,7 +141,7 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
 
                 if let Some(last_color_value) = last_color {
                     buffer.push_str(&last_color_value.suffix().to_string()); // TODO look up for a
-                    // better solution after benchmarking.
+                                                                             // better solution after benchmarking.
                     last_color = None;
                 }
 
@@ -173,13 +164,11 @@ impl<'a> Renderer<'a, DynamicImage> for ImageRenderer<'a> {
             buffer.push_str(char_for_pixel);
         }
 
-
         if let Some(last_color) = last_color {
             buffer.push_str(&last_color.suffix().to_string()); // TODO look up for a
-            // better solution after benchmarking.
+                                                               // better solution after benchmarking.
         }
 
         Ok(())
     }
-
 }
