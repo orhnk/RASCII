@@ -20,6 +20,7 @@ Options:
   -w, --width <WIDTH>      Width of the output image. Defaults to 128 if width and height are not specified
   -H, --height <HEIGHT>    Height of the output image, if not specified, it will be calculated to keep the aspect ratio
   -c, --color              Whether to use colors in the output image
+  -e, --escape-each-char   Whether all characters should have an ANSI color code before each character. Defaults to only escape colored strings upon color change
   -i, --invert             Inverts the weights of the characters. Useful for white backgrounds
   -C, --charset <CHARSET>  Characters used to render the image, from transparent to opaque. Built-in charsets: block, emoji, default, russian, slight [default: default]
   -h, --help               Print help
@@ -39,9 +40,9 @@ Options:
   > Your terminal emulator has to support `truecolor` (don't worry,
   > almost all modern terminal emulators do).
 
-- **Super efficient colored output**: RASCII never repeats the same ANSI color
+- **Super efficient colored output**: RASCII (by default) never repeats the same ANSI color
   code if it is already active.
-  > This makes a huge difference in images with little alternating color, up to
+  > This makes a huge difference in images with little alternating colors, up to
   > about 1800% reduction in output size. Woah!
 
 - **Custom dimensions**: RASCII allows you to give custom dimensions to the

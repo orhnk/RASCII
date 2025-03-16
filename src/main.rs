@@ -4,6 +4,9 @@ use clap::Parser;
 use rascii_art::{charsets, RenderOptions};
 use unicode_segmentation::UnicodeSegmentation;
 
+// default width of output image
+const DEFAULT_WIDTH: u32 = 128;
+
 #[derive(Debug, Parser)]
 #[command(author, version, about)]
 struct Args {
@@ -24,12 +27,17 @@ struct Args {
     #[arg(name = "color", short, long)]
     colored: bool,
 
+    /// Whether all characters should have an ANSI color code before each character.
+    /// Defaults to only escape colored strings upon color change.
+    #[arg(name = "escape-each-char", short, long)]
+    escape_each_colored_char: bool,
+
     /// Inverts the weights of the characters. Useful for white backgrounds
     #[arg(short, long)]
     invert: bool,
 
     /// Characters used to render the image, from transparent to opaque.
-    /// Built-in charsets: block, emoji, default, russian, slight
+    /// Built-in charsets: block, emoji, default, russian, slight, minimal
     #[arg(short = 'C', long, default_value = "default")]
     charset: String,
 }
@@ -41,7 +49,7 @@ fn main() -> image::ImageResult<()> {
     let charset = charsets::from_str(args.charset.as_str()).unwrap_or(clusters.as_slice());
 
     if args.width.is_none() && args.height.is_none() {
-        args.width = Some(80);
+        args.width = Some(DEFAULT_WIDTH);
     }
 
     rascii_art::render(
@@ -52,6 +60,7 @@ fn main() -> image::ImageResult<()> {
             height: args.height,
             colored: args.colored,
             invert: args.invert,
+            escape_each_colored_char: args.escape_each_colored_char,
             charset,
         },
     )?;
