@@ -4,6 +4,9 @@ use clap::Parser;
 use rascii_art::{charsets, RenderOptions};
 use unicode_segmentation::UnicodeSegmentation;
 
+// default width of output image
+const DEFAULT_WIDTH: u32 = 128;
+
 #[derive(Debug, Parser)]
 #[command(author, version, about)]
 struct Args {
@@ -46,7 +49,7 @@ fn main() -> image::ImageResult<()> {
     let charset = charsets::from_str(args.charset.as_str()).unwrap_or(clusters.as_slice());
 
     if args.width.is_none() && args.height.is_none() {
-        args.width = Some(128);
+        args.width = Some(DEFAULT_WIDTH);
     }
 
     rascii_art::render(
