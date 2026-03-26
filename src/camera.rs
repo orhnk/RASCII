@@ -19,6 +19,7 @@ use crate::RenderOptions;
 // Error
 // ---------------------------------------------------------------------------
 
+/// Errors that can occur during camera capture or live rendering.
 #[derive(Debug)]
 pub enum CameraError {
     Permission(String),
@@ -62,8 +63,11 @@ impl From<image::ImageError> for CameraError {
 // CameraConfig
 // ---------------------------------------------------------------------------
 
+/// Configuration for opening a camera device.
 pub struct CameraConfig {
+    /// Device index (0 for the default camera).
     pub index: u32,
+    /// Mirror the frame horizontally (selfie view).
     pub mirror: bool,
 }
 
@@ -71,12 +75,17 @@ pub struct CameraConfig {
 // CameraSource
 // ---------------------------------------------------------------------------
 
+/// Webcam capture source backed by [`nokhwa`].
+///
+/// Yields [`DynamicImage`] frames suitable for passing to
+/// [`render_image`](crate::render_image) or [`render_image_to`](crate::render_image_to).
 pub struct CameraSource {
     camera: Camera,
     mirror: bool,
 }
 
 impl CameraSource {
+    /// Open the camera at the configured index and start the capture stream.
     pub fn new(config: &CameraConfig) -> Result<Self, CameraError> {
         #[cfg(target_os = "macos")]
         {
@@ -109,12 +118,14 @@ impl CameraSource {
         })
     }
 
+    /// Discard `frames` captures to let auto-exposure settle.
     pub fn warmup(&mut self, frames: u32) {
         for _ in 0..frames {
             let _ = self.camera.frame();
         }
     }
 
+    /// Capture a single frame, optionally mirroring it.
     pub fn frame(&mut self) -> Result<DynamicImage, CameraError> {
         let buffer = self
             .camera
@@ -145,15 +156,21 @@ impl Drop for TerminalGuard {
     }
 }
 
+/// Terminal render loop that displays frames at a target FPS.
+///
+/// Accepts any frame source via a closure, so it works with [`CameraSource`]
+/// or any other `FnMut() -> Result<DynamicImage, CameraError>`.
 pub struct LiveRenderer {
     fps: f64,
 }
 
 impl LiveRenderer {
+    /// Create a renderer targeting the given frames-per-second.
     pub fn new(fps: f64) -> Self {
         Self { fps }
     }
 
+    /// Run the render loop until the user presses Ctrl+C or `q`.
     pub fn run<F>(
         &self,
         mut frame_source: F,
