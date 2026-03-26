@@ -22,6 +22,9 @@
 
 pub mod charsets;
 
+#[cfg(feature = "camera")]
+pub mod camera;
+
 mod gif_renderer;
 mod image_renderer;
 mod renderer;
