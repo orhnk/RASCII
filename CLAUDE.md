@@ -65,5 +65,23 @@ Without `-w`, width defaults to your terminal's column count. On a retina displa
 ## Build
 
 ```bash
-cargo build --release
+cargo build --release                  # includes camera support (default)
+cargo build --release --no-default-features  # library-only, no nokhwa/camera
 ```
+
+## Architecture Notes
+
+### Feature gate
+The `camera` feature (default on) gates the `nokhwa` dependency and `rascii_art::camera` module.
+`crossterm` is always available (used for terminal size detection in file mode too).
+
+### Library API
+The camera module exposes three public types:
+- `CameraSource` — owns the nokhwa camera, yields `DynamicImage` frames via `.frame()`
+- `LiveRenderer` — terminal render loop, takes any `FnMut() -> Result<DynamicImage, CameraError>`
+- `CameraError` — enum with variants: `Permission`, `Device`, `Capture`, `Decode`, `Render`, `Terminal`
+
+The rendering pipeline is unchanged: `render_image(&DynamicImage, writer, options)` in `lib.rs` is the integration point between camera frames and ASCII output.
+
+### Known workaround
+`nokhwa` 0.10 on macOS crashes with `RequestedFormatType::AbsoluteHighestFrameRate` due to an NSException in AVFoundation KVC calls. We use `RequestedFormatType::None` to accept the camera's default format instead.
