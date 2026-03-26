@@ -75,8 +75,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let charset = charsets::from_str(args.charset.as_str()).unwrap_or(clusters.as_slice());
 
     if args.width.is_none() && args.height.is_none() {
-        let (cols, _) = crossterm::terminal::size().unwrap_or((80, 24));
-        args.width = Some(cols as u32);
+        #[cfg(feature = "terminal")]
+        {
+            let (cols, _) = crossterm::terminal::size().unwrap_or((80, 24));
+            args.width = Some(cols as u32);
+        }
+        #[cfg(not(feature = "terminal"))]
+        {
+            args.width = Some(80);
+        }
     }
 
     let options = RenderOptions {

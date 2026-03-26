@@ -10,12 +10,13 @@ edition = "2021"
 
 [features]
 default = ["camera"]
-camera = ["dep:nokhwa"]
+terminal = ["dep:crossterm"]
+camera = ["dep:nokhwa", "terminal"]
 
 [dependencies]
 ansi_term = "0.12.1"
 clap = { version = "4.5.31", features = ["derive"] }
-crossterm = "0.28"
+crossterm = { version = "0.28", optional = true }
 image = "0.25.5"
 nokhwa = { version = "0.10", features = ["input-native"], optional = true }
 unicode-segmentation = "1.12.0"
