@@ -8,16 +8,24 @@ keywords = [ "ascii" ]
 license = "MIT"
 edition = "2021"
 
-[dependencies]
-ansi_term = "0.12.1"
-clap = { version = "4.5.31", features = ["derive"] }
-image = "0.25.5"
-unicode-segmentation = "1.12.0"
+[features]
+default = ["terminal"]
+cli = ["dep:clap", "dep:unicode-segmentation"]
+terminal = ["dep:crossterm"]
+camera = ["dep:nokhwa", "terminal"]
 
+[dependencies]
+owo-colors = "4.3"
+clap = { version = "4.5.31", features = ["derive"], optional = true }
+crossterm = { version = "0.28", optional = true }
+image = "0.25.5"
+nokhwa = { version = "0.10", features = ["input-native"], optional = true }
+unicode-segmentation = { version = "1.12.0", optional = true }
 
 [[bin]]
 name = "rascii"
 path = "src/main.rs"
+required-features = ["cli"]
 
 [profile.release]
 strip = true

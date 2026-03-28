@@ -20,7 +20,12 @@
 //! }
 //! ```
 
+/// Built-in character sets for ASCII rendering (block, emoji, default, etc.).
 pub mod charsets;
+
+/// Webcam capture and live terminal rendering (requires the `camera` feature).
+#[cfg(feature = "camera")]
+pub mod camera;
 
 mod gif_renderer;
 mod image_renderer;
@@ -32,6 +37,7 @@ pub use renderer::RenderOptions;
 use renderer::Renderer;
 use std::{io, path::Path};
 
+/// Render an image file to ASCII art, writing ANSI-colored output to `to`.
 pub fn render<P: AsRef<Path> + AsRef<str>>(
     path: P,
     to: &mut impl io::Write,
@@ -41,6 +47,7 @@ pub fn render<P: AsRef<Path> + AsRef<str>>(
     render_image(image, to, options)
 }
 
+/// Render a [`DynamicImage`] to ASCII art, writing ANSI-colored output to `to`.
 pub fn render_image(
     image: &DynamicImage,
     to: &mut impl io::Write,
@@ -51,6 +58,7 @@ pub fn render_image(
     Ok(())
 }
 
+/// Render an image file to ASCII art, appending to a [`String`] buffer.
 pub fn render_to<P: AsRef<Path> + AsRef<str>>(
     path: P,
     buffer: &mut String,
@@ -62,6 +70,7 @@ pub fn render_to<P: AsRef<Path> + AsRef<str>>(
     Ok(())
 }
 
+/// Render a [`DynamicImage`] to ASCII art, appending to a [`String`] buffer.
 pub fn render_image_to(
     image: &DynamicImage,
     buffer: &mut String,
