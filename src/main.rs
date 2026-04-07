@@ -1,10 +1,7 @@
 use std::io;
 
 use clap::Parser;
-use rascii_art::{
-    charsets,
-    RenderOptions,
-};
+use rascii_art::{animator, charsets, RenderOptions};
 use unicode_segmentation::UnicodeSegmentation;
 
 #[derive(Debug, Parser)]
@@ -35,10 +32,25 @@ struct Args {
     #[arg(short, long)]
     invert: bool,
 
+    /// Trim empty borders (transparent, solid color) from the image
+    #[arg(short = 't', long)]
+    trim: bool,
+
     /// Characters used to render the image, from transparent to opaque.
-    /// Built-in charsets: block, emoji, default, russian, slight
+    /// Built-in charsets: block, blocks, braille, chinese, default, dense,
+    /// emoji, hybrid, russian, slight, stipple
     #[arg(short = 'C', long, default_value = "default")]
     charset: String,
+
+    /// Animate the output with a terminal effect.
+    /// Effects: dissolve-in, dissolve-out, swirl-in, swirl-out, whirl-in,
+    /// whirl-out, ants-in, ants-out, ken-burns
+    #[arg(short = 'a', long)]
+    animate: Option<String>,
+
+    /// Duration of the animation in seconds
+    #[arg(short = 'd', long, default_value = "3.0")]
+    duration: f64,
 }
 
 fn main() -> image::ImageResult<()> {
@@ -51,18 +63,46 @@ fn main() -> image::ImageResult<()> {
         args.width = Some(80);
     }
 
-    rascii_art::render(
-        &args.filename,
-        &mut io::stdout(),
-        &RenderOptions {
-            width: args.width,
-            height: args.height,
-            colored: args.colored,
-            background: args.background,
-            invert: args.invert,
-            charset,
-        },
-    )?;
+    let options = RenderOptions {
+        width: args.width,
+        height: args.height,
+        colored: args.colored,
+        background: args.background,
+        invert: args.invert,
+        trim: args.trim,
+        charset,
+    };
+
+    // Check if input is an animated GIF
+    if args.filename.to_lowercase().ends_with(".gif") {
+        rascii_art::render_gif(&args.filename, &options).map_err(image::ImageError::IoError)?;
+        return Ok(());
+    }
+
+    // Check for animation effect
+    if let Some(ref effect_name) = args.animate {
+        let effect = animator::Effect::from_str(effect_name).unwrap_or_else(|| {
+            eprintln!(
+                "Unknown animation effect: {}. Valid: dissolve-in, dissolve-out, swirl-in, swirl-out, whirl-in, whirl-out, ants-in, ants-out, ken-burns",
+                effect_name
+            );
+            std::process::exit(1);
+        });
+
+        let image = image::open(&args.filename)?;
+        let image = if args.trim {
+            rascii_art::trim_image(&image)
+        } else {
+            image
+        };
+        let grid = rascii_art::render_grid(&image, &options);
+        let anim = animator::Animator::new(grid, effect, args.duration);
+        anim.play().map_err(image::ImageError::IoError)?;
+        return Ok(());
+    }
+
+    // Static render
+    rascii_art::render(&args.filename, &mut io::stdout(), &options)?;
 
     Ok(())
 }

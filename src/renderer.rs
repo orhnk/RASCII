@@ -9,6 +9,7 @@ pub struct RenderOptions<'a> {
     pub colored: bool,
     pub background: bool,
     pub invert: bool,
+    pub trim: bool,
     pub charset: &'a [&'a str],
 }
 
@@ -51,6 +52,12 @@ impl<'a> RenderOptions<'a> {
         self
     }
 
+    /// Set whether to trim empty borders from the image.
+    pub fn trim(mut self, trim: bool) -> Self {
+        self.trim = trim;
+        self
+    }
+
     /// Set the charset to use for the rendered image.
     pub fn charset(mut self, charset: &'a [&'a str]) -> Self {
         self.charset = charset;
@@ -66,6 +73,7 @@ impl Default for RenderOptions<'_> {
             colored: false,
             background: false,
             invert: false,
+            trim: false,
             charset: charsets::DEFAULT,
         }
     }

@@ -1,4 +1,14 @@
 pub const BLOCK: &[&str] = &[" ", "░", "▒", "▓", "█"];
+pub const BLOCKS: &[&str] = &[
+    " ", "▏", "▁", "▎", "▂", "▍", "▃", "▌", "▄", "▋", "▅", "▊", "▆", "▉", "▇", "█",
+];
+pub const BRAILLE: &[&str] = &["⠀", "⠁", "⠉", "⠋", "⠛", "⠟", "⠿", "⡿", "⣿"];
+pub const HYBRID: &[&str] = &[
+    // Braille: fine dot patterns for the light range (~0-20% fill)
+    "⠀", "⠁", "⠉", "⠋", "⠛", "⠟", "⠿", "⡿", "⣿",
+    // Blocks: solid fills for the dark range (~25-100% fill)
+    "░", "▍", "▒", "▋", "▓", "▉", "█",
+];
 pub const CHINESE: &[&str] = &[
     "\u{3000}", "一", "二", "十", "人", "丁", "口", "王", "日", "木", "金", "華", "爱", "黑", "墨",
     "龍", "龘",
@@ -8,6 +18,13 @@ pub const DEFAULT: &[&str] = &[
     "-", "?", "]", "[", "}", "{", "1", ")", "(", "|", "\\", "/", "t", "f", "j", "r", "x", "n", "u",
     "v", "c", "z", "X", "Y", "U", "J", "C", "L", "Q", "0", "O", "Z", "m", "w", "q", "p", "d", "b",
     "k", "h", "a", "o", "*", "#", "M", "W", "&", "8", "%", "B", "$", "@",
+];
+pub const DENSE: &[&str] = &[
+    " ", ".", "`", "'", "^", "\"", ",", ":", ";", "-", "~", "=", "_", "+", "<", ">", "!", "|", "I",
+    "l", "1", "i", "\\", "/", "(", ")", "{", "}", "[", "]", "?", "r", "c", "t", "f", "j", "7", "v",
+    "n", "u", "z", "x", "s", "J", "L", "T", "*", "e", "k", "a", "o", "y", "p", "q", "w", "C", "S",
+    "U", "d", "h", "b", "3", "9", "2", "6", "4", "5", "0", "Z", "E", "F", "P", "g", "V", "Y", "A",
+    "H", "K", "X", "D", "m", "O", "R", "G", "#", "N", "Q", "8", "B", "W", "M", "%", "&", "@", "$",
 ];
 pub const EMOJI: &[&str] = &[
     "\u{3000}", "\u{3000}", "。", "，", "🧔", "👶", "🗣", "👥", "👤", "👀", "👁", "🦴", "🦷", "🫁",
@@ -25,15 +42,23 @@ pub const SLIGHT: &[&str] = &[
     " ", " ", ".", "`", "\"", "\\", ":", "I", "!", ">", "~", "_", "?", "[", "{", "|", ")", "(",
     "\\", "\\\\", "/", "Y", "L", "p", "d", "a", "*", "W", "8", "%", "@", "$",
 ];
+pub const STIPPLE: &[&str] = &[
+    " ", ".", "·", ":", "*", "+", "o", "O", "0", "#", "8", "%", "@", "$",
+];
 
 pub fn from_str(s: &str) -> Option<&[&str]> {
     match s {
         "block" => Some(BLOCK),
+        "blocks" => Some(BLOCKS),
+        "braille" => Some(BRAILLE),
         "chinese" => Some(CHINESE),
         "default" => Some(DEFAULT),
+        "dense" => Some(DENSE),
+        "hybrid" => Some(HYBRID),
         "emoji" => Some(EMOJI),
         "russian" => Some(RUSSIAN),
         "slight" => Some(SLIGHT),
+        "stipple" => Some(STIPPLE),
         _ => None,
     }
 }

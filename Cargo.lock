@@ -747,6 +747,7 @@ dependencies = [
  "ansi_term",
  "clap",
  "image",
+ "rand",
  "unicode-segmentation",
 ]
 

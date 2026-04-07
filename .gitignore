@@ -2,6 +2,7 @@
 
 !src/
 !src/render/
+!tests/
 
 !.gitignore
 !Cargo.lock

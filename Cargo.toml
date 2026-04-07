@@ -9,6 +9,7 @@ license = "MIT"
 edition = "2021"
 
 [dependencies]
+rand = "0.8"
 ansi_term = "0.12.1"
 clap = { version = "4.5.31", features = ["derive"] }
 image = "0.25.5"

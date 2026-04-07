@@ -1,18 +1,9 @@
 use std::io;
 
-use ansi_term::{
-    Color,
-    Style,
-};
-use image::{
-    DynamicImage,
-    Rgba,
-};
+use ansi_term::{Color, Style};
+use image::{DynamicImage, Rgba};
 
-use super::renderer::{
-    RenderOptions,
-    Renderer,
-};
+use super::renderer::{RenderOptions, Renderer};
 
 pub struct ImageRenderer<'a> {
     resource: &'a DynamicImage,
@@ -35,6 +26,72 @@ impl ImageRenderer<'_> {
 
     fn get_grayscale(&self, pixel: &Rgba<u8>) -> f64 {
         ((pixel[0] as f64 * 0.299) + (pixel[1] as f64 * 0.587) + (pixel[2] as f64 * 0.114)) / 255.0
+    }
+
+    pub fn render_grid(&self) -> crate::cell::Grid {
+        let (width, height) = (
+            self.options.width.unwrap_or_else(|| {
+                (self
+                    .options
+                    .height
+                    .expect("Either width or height must be set") as f64
+                    * (self.resource.width() as f64 / self.resource.height() as f64)
+                    * 2.0)
+                    .ceil() as u32
+            }),
+            self.options.height.unwrap_or_else(|| {
+                (self
+                    .options
+                    .width
+                    .expect("Either width or height must be set") as f64
+                    * (self.resource.height() as f64 / self.resource.width() as f64)
+                    / 2.0)
+                    .ceil() as u32
+            }),
+        );
+
+        let image = self.resource.thumbnail_exact(width, height).to_rgba8();
+        let maximum = image
+            .pixels()
+            .fold(0.0, |acc, pixel| self.get_grayscale(pixel).max(acc));
+
+        let mut grid: crate::cell::Grid = Vec::new();
+        let mut current_row: Vec<crate::cell::Cell> = Vec::new();
+        let mut prev_line = 0;
+
+        for (_, line, pixel) in image.enumerate_pixels() {
+            if prev_line < line {
+                prev_line = line;
+                grid.push(current_row);
+                current_row = Vec::new();
+            }
+
+            let ch = self.get_char_for_pixel(pixel, maximum).to_string();
+
+            let (color_pre, color_suf) = if self.options.colored || self.options.background {
+                let mut style = ansi_term::Style::new();
+                if self.options.colored {
+                    style = style.fg(ansi_term::Color::RGB(pixel[0], pixel[1], pixel[2]));
+                }
+                if self.options.background {
+                    style = style.on(ansi_term::Color::RGB(pixel[0], pixel[1], pixel[2]));
+                }
+                (style.prefix().to_string(), style.suffix().to_string())
+            } else {
+                (String::new(), String::new())
+            };
+
+            current_row.push(crate::cell::Cell {
+                ch,
+                color_pre,
+                color_suf,
+            });
+        }
+        if !current_row.is_empty() {
+            grid.push(current_row);
+        }
+
+        grid
     }
 }
 
